@@ -43,3 +43,8 @@ coverage*
 .swc
 # Snyk Security Extension - AI Rules (auto-generated)
 .cursor/rules/snyk_rules.mdc
+
+# contact form research exports (private data, never commit)
+/*.csv
+/*.png
+/*.eml
