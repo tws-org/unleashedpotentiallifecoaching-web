@@ -53,7 +53,7 @@ const HomePage = ({ page, coaches }: Props) => {
         title={page?.seoTitle}
         metaDescription={page?.seoMetaDescription}
       />
-      <main>
+      <div>
         <HomeBanner
           imageUrl={page?.banner?.url}
           lineOne={page?.mainBannerText}
@@ -74,7 +74,7 @@ const HomePage = ({ page, coaches }: Props) => {
         <Container>
           <WidgetWrapper widgets={widgets} />
         </Container>
-      </main>
+      </div>
     </FadeInContainer>
   );
 };

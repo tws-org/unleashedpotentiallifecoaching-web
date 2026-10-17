@@ -1,4 +1,5 @@
 import Container from 'layouts/Container';
+import SiteHead from 'components/shared/SiteHead';
 import { useFormik } from 'formik';
 import * as Yup from 'yup';
 import { useState } from 'react';
@@ -62,16 +63,23 @@ const WebsiteSupport = () => {
 
   return (
     <Container>
+      <SiteHead
+        title="Website Support | Unleashed Potential"
+        metaDescription="Report a problem with the Unleashed Potential website."
+      />
+      <h1 className="text-3xl font-serif text-forrest text-center mb-8">
+        Website Support
+      </h1>
       <form onSubmit={formik.handleSubmit} className="max-w-md mx-auto">
         <div className="mb-4">
           <label
-            htmlFor="fullName"
+            htmlFor="support-full-name"
             className="block text-sm font-medium text-gray-700"
           >
             Full Name
           </label>
           <input
-            id="fullName"
+            id="support-full-name"
             name="fullName"
             type="text"
             onChange={formik.handleChange}
@@ -88,13 +96,13 @@ const WebsiteSupport = () => {
 
         <div className="mb-4">
           <label
-            htmlFor="email"
+            htmlFor="support-email"
             className="block text-sm font-medium text-gray-700"
           >
             Email
           </label>
           <input
-            id="email"
+            id="support-email"
             name="email"
             type="email"
             onChange={formik.handleChange}
@@ -111,13 +119,13 @@ const WebsiteSupport = () => {
 
         <div className="mb-4">
           <label
-            htmlFor="phone"
+            htmlFor="support-phone"
             className="block text-sm font-medium text-gray-700"
           >
             Phone (optional)
           </label>
           <input
-            id="phone"
+            id="support-phone"
             name="phone"
             type="tel"
             onChange={formik.handleChange}
@@ -129,13 +137,13 @@ const WebsiteSupport = () => {
 
         <div className="mb-4">
           <label
-            htmlFor="stepsToReproduce"
+            htmlFor="support-steps"
             className="block text-sm font-medium text-gray-700"
           >
             Steps to Reproduce Issue
           </label>
           <textarea
-            id="stepsToReproduce"
+            id="support-steps"
             name="stepsToReproduce"
             onChange={formik.handleChange}
             onBlur={formik.handleBlur}
@@ -150,12 +158,15 @@ const WebsiteSupport = () => {
         </div>
 
         <div className="mb-4">
-          <label className="block text-sm font-medium text-gray-700">
+          <label
+            htmlFor="support-file"
+            className="block text-sm font-medium text-gray-700"
+          >
             Attach Files
           </label>
           <input
             type="file"
-            id="file"
+            id="support-file"
             name="file"
             multiple
             onChange={handleFileChange}

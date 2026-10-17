@@ -7,7 +7,7 @@ interface Props {
 
 const ReviewBlock = ({ name, quote }: Props) => (
   <figure className="quote">
-    <blockquote className="text-gray-400 font-serif">
+    <blockquote className="text-gray-500 font-serif">
       {documentToReactComponents(quote.json)}
     </blockquote>
     <figcaption className="mt-2 text-forest-900 font-bold">

@@ -8,14 +8,17 @@ const Header = () => {
   const { site_navigation } = useContext(ConstantsContext);
 
   return (
-    <Disclosure as="nav" className="bg-white shadow sticky top-0 z-40">
+    <Disclosure as="header" className="bg-white shadow sticky top-0 z-40">
       {({ open }) => (
         <>
-          <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          <nav
+            aria-label="Main"
+            className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8"
+          >
             <div className="flex flex-row  justify-between sm:flex-col sm:items-center sm:justify-center">
               <div className="mt-2">
                 <div className="text-left sm:text-center">
-                  <p className="font-bold italic m-1 text-xl sm:text-3xl p-0 font-serif text-cream">
+                  <p className="font-bold italic m-1 text-xl sm:text-3xl p-0 font-serif text-forrest">
                     Unleashed Potential: Life Coaching & Counseling
                   </p>
                 </div>
@@ -51,14 +54,14 @@ const Header = () => {
                                     target="_blank"
                                     rel="noreferrer"
                                     href={slug}
-                                    className="block px-4 py-2 text-base text-forrest hover:bg-gray-200 hover:text-gray-700"
+                                    className="block px-4 py-2 text-base text-forrest hover:bg-gray-200 hover:text-gray-700 data-[focus]:bg-gray-200 data-[focus]:text-gray-700"
                                   >
                                     {label}
                                   </a>
                                 ) : (
                                   <Link
                                     href={slug}
-                                    className="block px-4 py-2 text-base text-forrest hover:bg-gray-200 hover:text-gray-700"
+                                    className="block px-4 py-2 text-base text-forrest hover:bg-gray-200 hover:text-gray-700 data-[focus]:bg-gray-200 data-[focus]:text-gray-700"
                                   >
                                     {label}
                                   </Link>
@@ -82,7 +85,9 @@ const Header = () => {
               <div className="-mr-2 flex items-center sm:hidden">
                 {/* Mobile menu button */}
                 <Disclosure.Button className="inline-flex items-center justify-center p-2 rounded-md text-gray-600 focus:outline-none focus:ring-2 focus:ring-inset focus:ring-forrest">
-                  <span className="sr-only">Open main menu</span>
+                  <span className="sr-only">
+                    {open ? 'Close main menu' : 'Open main menu'}
+                  </span>
                   {open ? (
                     <XMarkIcon className="block h-8 w-8" aria-hidden="true" />
                   ) : (
@@ -91,7 +96,7 @@ const Header = () => {
                 </Disclosure.Button>
               </div>
             </div>
-          </div>
+          </nav>
           <Disclosure.Panel className="sm:hidden border-t absolute shadow-xl w-full z-10 bg-white">
             <div className="pt-2 pb-3 space-y-1">
               {site_navigation.map(({ id, slug, children, label }) =>
@@ -105,24 +110,27 @@ const Header = () => {
                     {label}
                   </Disclosure.Button>
                 ) : (
-                  <Disclosure.Button
-                    as="div"
+                  <div
                     key={id}
-                    className="border-transparent text-forrest hover:bg-gray-50 hover:border-forrest hover:text-gray-700 block pl-3 pr-4 py-2 border-l-4 text-base font-medium"
+                    className="border-transparent text-forrest block pl-3 pr-4 py-2 border-l-4 text-base font-medium"
                   >
                     {label}
                     <ul className="ml-4 mt-3 -mb-3">
                       {children?.map(({ id, slug, label }) => (
                         <li key={id} className="mb-3">
                           {slug && (
-                            <Link href={slug} className="hover:underline">
+                            <Disclosure.Button
+                              as={Link}
+                              href={slug}
+                              className="hover:underline"
+                            >
                               {label}
-                            </Link>
+                            </Disclosure.Button>
                           )}
                         </li>
                       ))}
                     </ul>
-                  </Disclosure.Button>
+                  </div>
                 ),
               )}
               <Disclosure.Button

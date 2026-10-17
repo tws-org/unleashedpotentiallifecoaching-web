@@ -27,7 +27,7 @@ const PodcastPage = ({ page }: Props) => {
   return (
     <SimplePageLayout page={page}>
       <Container>
-        <main className="flex flex-col items-center justify-center">
+        <div className="flex flex-col items-center justify-center">
           {/** @ts-ignore */}
           {data?.podcastsCollection?.items.map((podcast: any) =>
             podcast?.isAVideoLink ? (
@@ -45,14 +45,14 @@ const PodcastPage = ({ page }: Props) => {
                 rel="noreferrer"
                 className="flex flex-col my-16 max-w-md border p-6 rounded"
               >
-                <h3 className="text-2xl text-forrest mb-2 block">
+                <h2 className="text-2xl text-forrest mb-2 block">
                   {podcast?.title}
-                </h3>
+                </h2>
                 <p>{podcast?.excerpt}</p>
               </a>
             ),
           )}
-        </main>
+        </div>
       </Container>
       <div className="flex flex-row justify-center w-full mb-8">
         <button

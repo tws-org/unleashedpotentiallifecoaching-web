@@ -55,13 +55,13 @@ const BookTimeForm = () => {
             <Form className="space-y-4 forrest-form">
               <div>
                 <label
-                  htmlFor="fullName"
+                  htmlFor="book-full-name"
                   className="block text-sm font-medium text-gray-700"
                 >
                   Full Name
                 </label>
                 <Field
-                  id="fullName"
+                  id="book-full-name"
                   name="fullName"
                   type="text"
                   className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-forrest-300 focus:ring focus:ring-forrest-900 focus:ring-opacity-50"
@@ -75,13 +75,13 @@ const BookTimeForm = () => {
 
               <div>
                 <label
-                  htmlFor="email"
+                  htmlFor="book-email"
                   className="block text-sm font-medium text-gray-700"
                 >
                   Email
                 </label>
                 <Field
-                  id="email"
+                  id="book-email"
                   name="email"
                   type="email"
                   className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-forrest-300 focus:ring focus:ring-forrest-900 focus:ring-opacity-50"
@@ -95,13 +95,13 @@ const BookTimeForm = () => {
 
               <div>
                 <label
-                  htmlFor="phone"
+                  htmlFor="book-phone"
                   className="block text-sm font-medium text-gray-700"
                 >
                   Phone
                 </label>
                 <Field
-                  id="phone"
+                  id="book-phone"
                   name="phone"
                   type="tel"
                   className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-forrest-300 focus:ring focus:ring-forrest-900 focus:ring-opacity-50"
@@ -114,12 +114,12 @@ const BookTimeForm = () => {
               </div>
               <div className="flex flex-col md:flex-row space-y-4 md:space-y-0">
                 <div className="flex-1 rounded-lg">
-                  <label
-                    htmlFor="eventDate"
+                  <p
+                    id="book-event-date-label"
                     className="block text-sm font-medium text-gray-700 mb-2"
                   >
                     Pick date & time
-                  </label>
+                  </p>
                   <Field name="eventDate">
                     {({ field }: { field: any }) => (
                       <DatePicker
@@ -135,6 +135,7 @@ const BookTimeForm = () => {
                         dateFormat="MMMM d, yyyy h:mm aa"
                         calendarClassName="w-full"
                         wrapperClassName="w-full"
+                        ariaLabelledBy="book-event-date-label"
                       />
                     )}
                   </Field>
@@ -147,14 +148,14 @@ const BookTimeForm = () => {
               </div>
               <div>
                 <label
-                  htmlFor="comments"
+                  htmlFor="book-comments"
                   className="block text-sm font-medium text-gray-700"
                 >
                   Anything else you would like to add?
                 </label>
                 <Field
                   as="textarea"
-                  id="comments"
+                  id="book-comments"
                   name="comments"
                   rows={4}
                   className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-forrest-300 focus:ring focus:ring-forrest-900 focus:ring-opacity-50"

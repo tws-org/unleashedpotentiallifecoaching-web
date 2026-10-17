@@ -22,17 +22,19 @@ const FeaturedReview = dynamic(
 const Footer = () => (
   <>
     <SharedToastContainer />
-    <FeaturedReview />
-    <div className="w-100">
-      <Container>
-        <Banner />
-        <div className="flex flex-col lg:flex-row lg:space-evenly items-center lg:items-start mt-12 sm:mt-24">
-          <ContactInfo />
-          <ContactForm />
-        </div>
-        <SubFooter />
-      </Container>
-    </div>
+    <footer>
+      <FeaturedReview />
+      <div className="w-100">
+        <Container>
+          <Banner />
+          <div className="flex flex-col lg:flex-row lg:space-evenly items-center lg:items-start mt-12 sm:mt-24">
+            <ContactInfo />
+            <ContactForm />
+          </div>
+          <SubFooter />
+        </Container>
+      </div>
+    </footer>
   </>
 );
 
