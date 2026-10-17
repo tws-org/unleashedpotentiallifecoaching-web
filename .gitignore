@@ -43,3 +43,12 @@ coverage*
 .swc
 # Snyk Security Extension - AI Rules (auto-generated)
 .cursor/rules/snyk_rules.mdc
+
+# contact form research exports (private data, never commit)
+/*.csv
+/*.png
+/*.eml
+
+# local setup notes (account details stay out of the public repo)
+/AWS-SETUP.md
+/CLOUDFLARE-MIGRATION.md
