@@ -1,7 +1,7 @@
 # Baseline: contact form requests (before the fix)
 
 Source: discovery call with Jess, 2026-10-16
-Goal: 5 good client requests a month from the site by 2026-12-01
+Goal: 2 good client requests a month from the site by 2026-12-01 (stretch goal: 5)
 Recorded: 2026-10-16 (numbers to fill in below)
 
 This is the "before" for the contact form work. The "after" goes in a results doc when the fixes ship, the same way [BASELINE.md](BASELINE.md) and [MIGRATION-RESULTS.md](MIGRATION-RESULTS.md) work for the migration.
@@ -20,24 +20,28 @@ The forms deliver: a test message on 2026-10-16 arrived in her inbox. So this is
 
 | | Value | Source |
 | -- | -- | -- |
-| Outcome | 5 good requests a month by 2026-12-01 | Agreed on the call |
+| Outcome | **2 good requests a month by 2026-12-01.** Stretch goal: 5 | 5 agreed on the call; changed to 2 (stretch 5) on 2026-10-16 after the baseline showed 0. Confirm with Jess |
 | Good request | A real person asking for therapy or behavioral health | Request examples (private) |
 | Old level | About 6 a month (months: TBD) | Jess. Confirm with the inbox |
-| Current level | **4 form emails in 2 months** (2026-08-16 to 2026-10-16), about 2 a month. Real / good split: TBD | Gmail inbox (the primary metric) |
+| Current level | **0 good requests in 2 months** (2026-08-16 to 2026-10-16). 4 form emails: 3 spam, 1 real (not good) | Gmail inbox (the primary metric), sorted 2026-10-16 |
 | Drop started | TBD | Analytics and inbox, month by month |
 
 ## Funnel
 
-Each step has a number. The step where the number falls shows the cause.
+Each step has a number. The step where the number falls shows the cause. Period: 2026-08-16 to 2026-10-16 (the 2 months GA kept).
 
-| Step | What | Source | Status |
-| -- | -- | -- | -- |
-| 1 | Visitors | Google Analytics | TBD |
-| 2 | Views of pages with a form (home footer, book time) | Google Analytics | TBD |
-| 3 | Form submits | Not tracked (no analytics event on submit) | Add an event |
-| 4 | Emails sent | Vercel function logs for `/api/send-email`, SendGrid activity | TBD |
-| 5 | Real requests (spam removed) | Inbox | Blocked: inbox access |
-| 6 | Good requests (therapy, not life coaching) | Inbox | Blocked: inbox access |
+| Step | What | Number | Source | Trust |
+| -- | -- | -- | -- | -- |
+| 1 | Visitors | 152 users, 176 sessions | Google Analytics | Good. Ad blockers hide some visitors |
+| 2 | Views of pages with a form | 267 views | Google Analytics | The contact form is in the footer of every page, so this is all page views |
+| 3 | Form starts | 10 (`form_start`) | Google Analytics | Good. Counts a first interaction, not a submit |
+| 4 | Form submits | Not tracked | None | **Gap.** No submit event. Add `generate_lead` |
+| 5 | Emails sent | 48 requests, 48 delivered | SendGrid | **Not trusted.** Does not match the inbox (see Open questions). Vercel logs keep only 24 hours |
+| 6 | Emails in the inbox | **4** | Gmail inbox | **The primary metric** |
+| 7 | Real requests (spam removed) | **1** (book time, Aug 23) | Gmail inbox | Sorted 2026-10-16 |
+| 8 | Good requests (therapy, not life coaching) | **0** | Gmail inbox | Sorted 2026-10-16 |
+
+What it shows: about 7% of visitors start a form (10 of 152), and the funnel has no trusted count between "form start" and "inbox." Steps 4 and 5 are what the new pipeline fixes.
 
 ## Monthly numbers
 
@@ -45,10 +49,10 @@ GA keeps only 2 months of data here, so the history starts 2026-08-16. Vercel ke
 
 | Month | Users (GA) | Sessions (GA) | Views (GA) | Form events (GA) | Email requests (SendGrid) | Delivered (SendGrid) | Real requests | Good requests |
 | -- | -- | -- | -- | -- | -- | -- | -- | -- |
-| Aug 2026 (16–31) | 50 | 60 | 115 | 8 | 11 | 11 | TBD | TBD |
-| Sep 2026 | 71 | 81 | 104 | 0 | 14 | 14 | TBD | TBD |
-| Oct 2026 (1–16) | 34 | 35 | 48 | 2 | 23 | 23 | TBD | TBD |
-| **Total** | **152** | **176** | **267** | **10** | **48** | **48** | | |
+| Aug 2026 (16–31) | 50 | 60 | 115 | 8 | 11 | 11 | 1 | 0 |
+| Sep 2026 | 71 | 81 | 104 | 0 | 14 | 14 | 0 | 0 |
+| Oct 2026 (1–16) | 34 | 35 | 48 | 2 | 23 | 23 | 0 | 0 |
+| **Total** | **152** | **176** | **267** | **10** | **48** | **48** | **1** | **0** |
 
 Sources: GA free-form exploration and form events export, 2026-08-16 to 2026-10-16. SendGrid Statistics Overview, monthly, same range (monthly values read from the chart; the 48 total is exact). SendGrid shows 0 bounces, 0 blocks and 0 spam reports.
 
@@ -68,6 +72,7 @@ Form events by country (GA): US 6, Iran 2, Germany 1, Netherlands 1.
 - Not in the spam folder (checked 2026-10-16). The SendGrid numbers do not match the inbox, and the cause is not known.
 - Domain test (2026-10-16): a marked test from each domain (jessrebelo.com and unleashedpotentiallifecoaching.com) landed in the inbox. Both domains serve the same production app with no redirects. `TO_EMAIL_ADDRESS` is the site's Gmail account. So the domain and the env setting are not the cause.
 - Gmail settings (2026-10-16): no filters, no blocked addresses, POP off.
+- **Inbox sort (2026-10-16, baseline frozen):** 4 form emails. Aug 16, review form, spam. Aug 23, book time, real, not good. Sep 17, review form, spam. Sep 17, contact form, spam. None were test messages. **2 of the 3 spam emails came through the review form.**
 - **Decision (2026-10-16): the Gmail inbox is the primary metric.** SendGrid counts are kept above for reference only, not as a measure.
 - Request examples saved locally for reference (`*.eml`, never committed): 1 very good (Jun 2026), 2 good (May and Aug 2024), 1 neutral (Jun 2024), 2 spam (Dec 2024, and Sep 2026 through the **review** form). The review form is also a spam path.
 

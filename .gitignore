@@ -48,3 +48,7 @@ coverage*
 /*.csv
 /*.png
 /*.eml
+
+# local setup notes (account details stay out of the public repo)
+/AWS-SETUP.md
+/CLOUDFLARE-MIGRATION.md
