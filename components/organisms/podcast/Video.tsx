@@ -18,7 +18,7 @@ const Video = ({ url, title, description }: VIDEO_PROPS) => (
       allowFullScreen
     />
     <VideoDetails>
-      <p className="text-2xl text-forrest mb-2">{title}</p>
+      <h2 className="text-2xl text-forrest mb-2">{title}</h2>
       <p className="leading-7 font-serif text-base">{description}</p>
     </VideoDetails>
   </VideoContainer>

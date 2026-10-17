@@ -16,7 +16,7 @@ const Container = styled.div`
 
   a {
     text-decoration: underline;
-    color: rgb(22 163 74);
+    color: rgb(21 128 61);
   }
   p {
     margin-bottom: 12px;

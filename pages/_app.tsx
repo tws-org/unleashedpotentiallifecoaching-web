@@ -11,6 +11,7 @@ import { GoogleAnalytics } from '@next/third-parties/google';
 import { GA_ID } from 'utils/constants';
 import { EmailsProvider } from 'contexts/EmailsContext';
 import 'react-toastify/dist/ReactToastify.css';
+import { MotionConfig } from 'framer-motion';
 
 const queryClient = new QueryClient();
 const Footer = dynamic(() => import('components/shared/Footer'));
@@ -38,9 +39,23 @@ const UnleashedPotentialApp = ({ Component, pageProps }: AppProps) => {
           <CoachesProvider>
             <EmailsProvider>
               <SiteHead />
+              <a
+                href="#main-content"
+                className="sr-only focus:not-sr-only focus:fixed focus:top-2 focus:left-2 focus:z-50 focus:bg-white focus:text-forrest-900 focus:px-4 focus:py-2 focus:rounded focus:shadow"
+              >
+                Skip to main content
+              </a>
               <Header />
-              <Component {...pageProps} />
-              <Footer />
+              <MotionConfig reducedMotion="user">
+                <main
+                  id="main-content"
+                  tabIndex={-1}
+                  className="focus:outline-none"
+                >
+                  <Component {...pageProps} />
+                </main>
+                <Footer />
+              </MotionConfig>
             </EmailsProvider>
           </CoachesProvider>
         </ConstantsProvider>

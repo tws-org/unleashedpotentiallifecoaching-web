@@ -61,7 +61,7 @@ const ReviewForm = () => {
           <Form className="space-y-4 forrest-form">
             <div>
               <label
-                htmlFor="fullName"
+                htmlFor="review-full-name"
                 className="block text-sm font-medium text-gray-700"
               >
                 Full Name
@@ -81,7 +81,7 @@ const ReviewForm = () => {
 
             <div>
               <label
-                htmlFor="email"
+                htmlFor="review-email"
                 className="block text-sm font-medium text-gray-700"
               >
                 Email
@@ -101,7 +101,7 @@ const ReviewForm = () => {
 
             <div>
               <label
-                htmlFor="phone"
+                htmlFor="review-phone"
                 className="block text-sm font-medium text-gray-700"
               >
                 Phone
@@ -149,14 +149,14 @@ const ReviewForm = () => {
 
             <div>
               <label
-                htmlFor="explanation"
+                htmlFor="review-explanation"
                 className="block text-sm font-medium text-gray-700"
               >
                 What did you like best?
               </label>
               <Field
                 as="textarea"
-                id="explanation"
+                id="review-explanation"
                 name="explanation"
                 className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-900 focus:ring focus:ring-indigo-200 focus:ring-opacity-50"
               />
@@ -169,14 +169,14 @@ const ReviewForm = () => {
 
             <div>
               <label
-                htmlFor="improvements"
+                htmlFor="review-improvements"
                 className="block text-sm font-medium text-gray-700"
               >
                 How can we improve?
               </label>
               <Field
                 as="textarea"
-                id="improvements"
+                id="review-improvements"
                 name="improvements"
                 className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-900 focus:ring focus:ring-indigo-200 focus:ring-opacity-50"
               />
@@ -217,14 +217,14 @@ const ReviewForm = () => {
 
             <div>
               <label
-                htmlFor="comments"
+                htmlFor="review-comments"
                 className="block text-sm font-medium text-gray-700"
               >
                 Anything else you would like to add?
               </label>
               <Field
                 as="textarea"
-                id="comments"
+                id="review-comments"
                 name="comments"
                 className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-900 focus:ring focus:ring-indigo-200 focus:ring-opacity-50"
               />

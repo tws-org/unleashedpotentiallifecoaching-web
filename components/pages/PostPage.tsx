@@ -32,7 +32,7 @@ const PostPage = ({ post, postContent }: Props) => {
           post?.seoMetaDescription || seo_defaults.metaDescription
         }
       />
-      <main>
+      <div>
         <Container>
           <div className="flex flex-col w-full sm:flex-row">
             <div className="w-full sm:w-2/3">
@@ -41,7 +41,7 @@ const PostPage = ({ post, postContent }: Props) => {
               </h1>
               <div className="flex flex-row w-full mb-4 text-stone-600">
                 <p>
-                  <span className="mr-1 font-bold leading-snug text-stone-400">
+                  <span className="mr-1 font-bold leading-snug text-stone-500">
                     Date:{' '}
                   </span>
                   <span className="mr-3 text-base text-stone-500">
@@ -50,7 +50,7 @@ const PostPage = ({ post, postContent }: Props) => {
                       'LLLL M, yyyy',
                     )}
                   </span>
-                  <span className="mr-1 font-bold leading-snug text-stone-400">
+                  <span className="mr-1 font-bold leading-snug text-stone-500">
                     Author:
                   </span>
                   <span className="text-base text-stone-500">
@@ -81,6 +81,7 @@ const PostPage = ({ post, postContent }: Props) => {
                         height: '100%',
                       }}
                       src="/MyWorkwithVictimsofDomesticViolence.pdf#toolbar=0"
+                      title="My Work with Victims of Domestic Violence (PDF)"
                     ></iframe>
                   </div>
                 </>
@@ -155,7 +156,7 @@ const PostPage = ({ post, postContent }: Props) => {
             </div>
           </div>
         </Container>
-      </main>
+      </div>
     </FadeInContainer>
   );
 };

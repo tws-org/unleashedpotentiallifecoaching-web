@@ -19,7 +19,9 @@ const AnimatedButton = ({
         animate={{ opacity: inView ? 1 : 0, y: inView ? 0 : 30 }}
         transition={{ duration: 2 }}
       >
-        <button
+        {/* A styled wrapper, not a <button>: the link inside is the control,
+            and a link nested in a button is invalid and confuses screen readers. */}
+        <div
           onMouseDown={() => setBackgroundColor(true)}
           onMouseUp={() => setBackgroundColor(false)}
           onMouseLeave={() => setBackgroundColor(false)}
@@ -31,7 +33,7 @@ const AnimatedButton = ({
           )}
         >
           <div className="border py-4 px-6">{children}</div>
-        </button>
+        </div>
       </m.div>
     </LazyMotion>
   );

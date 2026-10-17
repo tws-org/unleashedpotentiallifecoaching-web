@@ -21,7 +21,7 @@ const ReviewsPage = ({ page, allReviews }: Props) => {
 
   return (
     <SimplePageLayout page={page}>
-      <main>
+      <div>
         <Container>
           <div className="lg:grid lg:grid-cols-2 lg:grid-flow-col lg:gap-4">
             <div
@@ -64,7 +64,7 @@ const ReviewsPage = ({ page, allReviews }: Props) => {
             </div>
           </div>
         </Container>
-      </main>
+      </div>
     </SimplePageLayout>
   );
 };

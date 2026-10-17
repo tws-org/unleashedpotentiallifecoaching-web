@@ -21,7 +21,7 @@ const Disclaimer = ({
       />
       <h1 className="text-3xl mb-5">{page?.title}</h1>
       <p className="text-xl mb-5">Last Updated: {page?.lastUpdated}</p>
-      <h3 className="mb-5 text-2xl font-bold">{page?.secondaryTitle}</h3>
+      <h2 className="mb-5 text-2xl font-bold">{page?.secondaryTitle}</h2>
       <p className="text-xl">
         The information provided by Unleashed Potential: Life Coaching (“we,”
         “us”, or “our”) on

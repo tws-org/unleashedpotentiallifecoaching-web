@@ -39,7 +39,7 @@ a {
   @apply mb-5;
 }
 .blog-post-content > p > a {
-  @apply text-green-600;
+  @apply text-green-700;
   @apply underline;
 }
 

@@ -32,7 +32,7 @@ const InterviewsPage = ({ page }: Props) => {
   return (
     <SimplePageLayout page={page}>
       <Container>
-        <main className="flex flex-col items-center justify-center">
+        <div className="flex flex-col items-center justify-center">
           {/** @ts-ignore */}
           {data?.interviewsCollection?.items.map((post: IInterviewsFields) => (
             <Link
@@ -54,7 +54,7 @@ const InterviewsPage = ({ page }: Props) => {
                 <div className="mt-3 sm:mt-0 sm:ml-8 blog-post-excerpt">
                   <p className="text-2xl text-forrest">{post?.title}</p>
                   <p className="flex flex-row items-center my-2">
-                    <span className="mr-1 font-bold leading-snug text-stone-400">
+                    <span className="mr-1 font-bold leading-snug text-stone-500">
                       Date:{' '}
                     </span>
                     <span className="mr-3 text-base text-stone-500">
@@ -63,7 +63,7 @@ const InterviewsPage = ({ page }: Props) => {
                         'MMMM dd, yyyy',
                       )}
                     </span>
-                    <span className="mr-1 font-bold leading-snug text-stone-400">
+                    <span className="mr-1 font-bold leading-snug text-stone-500">
                       Publication:
                     </span>
                     <span className="text-base text-stone-500">
@@ -80,7 +80,7 @@ const InterviewsPage = ({ page }: Props) => {
               </a>
             </Link>
           ))}
-        </main>
+        </div>
       </Container>
       <div className="flex flex-row justify-center w-full mb-8">
         <button

@@ -34,13 +34,14 @@ const SubFooter = () => {
               </Link>
             </li>
           ) : (
-            <a
-              href={slug}
-              key={`${label}-${index}`}
-              className="mx-4 font-serif text-lg italic text-forrest hover:underline"
-            >
-              {label}
-            </a>
+            <li key={`${label}-${index}`}>
+              <a
+                href={slug}
+                className="mx-4 font-serif text-lg italic text-forrest hover:underline"
+              >
+                {label}
+              </a>
+            </li>
           ),
         )}
       </ul>
