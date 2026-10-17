@@ -1,8 +1,9 @@
-require('dotenv').config({ path: ['.env.local', '.env'] });
+import dotenv from 'dotenv';
+import contentfulManagement from 'contentful-management';
 
-const contentfulManagement = require('contentful-management');
+dotenv.config({ path: ['.env.local', '.env'] });
 
-module.exports = function () {
+function getContentfulEnvironment() {
   const contentfulClient = contentfulManagement.createClient({
     accessToken: process.env.CONTENTFUL_MANAGEMENT_TOKEN,
   });
@@ -12,4 +13,8 @@ module.exports = function () {
     .then((space) =>
       space.getEnvironment(process.env.NEXT_PUBLIC_CONTENTFUL_ENVIRONMENT),
     );
-};
+}
+
+// contentful-typescript-codegen loads this file with require(), so expose the
+// function itself as the CommonJS export (Node 22 require(esm)).
+export { getContentfulEnvironment as 'module.exports' };

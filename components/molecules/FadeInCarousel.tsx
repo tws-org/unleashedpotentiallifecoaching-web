@@ -1,6 +1,12 @@
 import Head from 'next/head';
 import React from 'react';
-import Slider from 'react-slick';
+import SlickSlider from 'react-slick';
+
+// react-slick is CommonJS with `exports.default`. Under "type": "module" the
+// Worker bundle can hand back the whole exports object, so unwrap it.
+const Slider: typeof SlickSlider =
+  (SlickSlider as unknown as { default?: typeof SlickSlider }).default ??
+  SlickSlider;
 
 const FadeInCarousel = () => {
   var settings = {

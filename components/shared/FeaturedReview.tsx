@@ -2,18 +2,18 @@ import styled from 'styled-components';
 import { documentToReactComponents } from '@contentful/rich-text-react-renderer';
 import { fetchContenfulAPI } from 'utils/api';
 import { featuredReview } from 'utils/queries';
-import { useQuery } from '@tanstack/react-query';
+import { keepPreviousData, useQuery } from '@tanstack/react-query';
 import { IReviewFields } from 'types/contentful';
 
 const useGetReviews = () => {
-  return useQuery<IReviewFields[]>(
-    ['reviews'],
-    async () => {
+  return useQuery<IReviewFields[]>({
+    queryKey: ['reviews'],
+    queryFn: async () => {
       const request = await fetchContenfulAPI(featuredReview, {});
       return request?.data?.reviewCollection?.items;
     },
-    { keepPreviousData: true },
-  );
+    placeholderData: keepPreviousData,
+  });
 };
 
 const FeaturedReview = () => {
