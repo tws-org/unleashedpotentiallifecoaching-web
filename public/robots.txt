@@ -3,3 +3,5 @@ Disallow: /coach/ron-lombardi
 
 User-agent: ia_archiver
 Disallow: /
+
+Sitemap: https://jessrebelo.com/sitemap.xml

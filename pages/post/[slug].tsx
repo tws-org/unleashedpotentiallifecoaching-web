@@ -1,9 +1,9 @@
 import React from 'react';
 import { GetStaticProps, InferGetStaticPropsType } from 'next';
-import PostPage from 'components/pages/PostPage';
+import PostPage from 'features/blog/PostPage';
 import { IBlogPostFields } from 'types/contentful';
-import { fetchContenfulAPI } from 'utils/api';
-import { blogPostQuery, allBlogPostsQuery } from 'utils/queries';
+import { fetchContenfulAPI } from 'lib/contentful/api';
+import { blogPostQuery, allBlogPostsQuery } from 'lib/contentful/queries';
 import { useRouter } from 'next/router';
 import ErrorPage from 'next/error';
 

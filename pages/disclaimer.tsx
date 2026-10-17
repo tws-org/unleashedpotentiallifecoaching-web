@@ -1,10 +1,10 @@
-import SiteHead from 'components/shared/SiteHead';
-import Container from 'layouts/Container';
+import SiteHead from 'components/layout/SiteHead';
+import Container from 'components/layout/Container';
 import { GetStaticProps, InferGetStaticPropsType } from 'next';
 import { IDisclaimerFields } from 'types/contentful';
-import { fetchContenfulAPI } from 'utils/api';
-import { SITE_URL } from 'utils/constants';
-import { disclaimerPageQuery } from 'utils/queries';
+import { fetchContenfulAPI } from 'lib/contentful/api';
+import { SITE_URL } from 'lib/constants';
+import { disclaimerPageQuery } from 'lib/contentful/queries';
 
 const Disclaimer = ({
   page,

@@ -1,24 +1,25 @@
 import { GetServerSideProps, GetServerSidePropsContext } from 'next';
 import { IBlogPostFields } from 'types/contentful';
-import { fetchContenfulAPI } from 'utils/api';
-import { SITE_URL, CACHE_CONTROL, CACHE_LIFE } from 'utils/constants';
-import { removeSlashFromSlug, siteConstants } from 'utils/helpers';
-import { allBlogPostsQuery } from 'utils/queries';
+import { fetchContenfulAPI } from 'lib/contentful/api';
+import { SITE_URL, CACHE_CONTROL, CACHE_LIFE } from 'lib/constants';
+import { removeSlashFromSlug, siteConstants } from 'lib/helpers';
+import { allBlogPostsQuery } from 'lib/contentful/queries';
 
 const Sitemap = () => null;
 export default Sitemap;
 
-const generateXML = (slug: string, date: string, isPost: boolean) => {
-  const url = `${SITE_URL}${isPost ? 'post/' : ''}${slug}`;
+// Only internal pages, on the one canonical domain. lastmod is set only when
+// the real date is known (blog posts), so search engines can trust it.
+const generateXML = (path: string, lastmod?: string) => {
+  const url = `${SITE_URL}${removeSlashFromSlug(path)}`;
   return `
   <url>
-        <loc>${url}</loc>
-        <lastmod>${date}</lastmod>
-        <changefreq>monthly</changefreq>
-        <priority>1.0</priority>
-      </url> 
-    `;
+    <loc>${url}</loc>${lastmod ? `\n    <lastmod>${lastmod}</lastmod>` : ''}
+  </url>`;
 };
+
+const isInternal = (slug: string | null | undefined): slug is string =>
+  typeof slug === 'string' && slug.startsWith('/');
 
 export const getServerSideProps: GetServerSideProps = async (
   context: GetServerSidePropsContext,
@@ -30,45 +31,26 @@ export const getServerSideProps: GetServerSideProps = async (
   const constants = siteConstants;
 
   const postLinks = posts
-    .filter((post: IBlogPostFields) => post?.slugText !== null)
+    .filter((post: IBlogPostFields) => post?.slugText)
     .map((post: IBlogPostFields) =>
       generateXML(
-        post?.slugText as string,
+        `/post/${post?.slugText}`,
         new Date(post?.publishDate as string).toISOString(),
-        true,
       ),
     )
     .join('');
 
-  const siteLinks = constants?.site_navigation
-    .map((nav) => {
-      // nav can be:
-      // { id: number; slug: string; label: string; children?: undefined }
-      // or { id: number; slug: null; label: string; children: [...] }
-      if (nav && typeof nav.slug === 'string' && nav.slug) {
-        return generateXML(
-          removeSlashFromSlug(nav.slug),
-          new Date().toISOString(),
-          false,
-        );
-      }
+  const navPaths = constants.site_navigation.flatMap((nav) =>
+    nav?.children ? nav.children.map((child) => child.slug) : [nav?.slug],
+  );
+  const servicePaths = constants.service_list.map((service) => service.slug);
+  const otherPaths = ['/disclaimer'];
 
-      if (nav?.children) {
-        return nav?.children
-          .filter(
-            (link: { slug: string | string[] }) =>
-              !link?.slug?.includes('themendwellness'),
-          )
-          .map((nav: { slug: string }) => {
-            return generateXML(
-              removeSlashFromSlug(nav?.slug),
-              new Date().toISOString(),
-              false,
-            );
-          })
-          .join('');
-      }
-    })
+  const siteLinks = Array.from(
+    new Set([...navPaths, ...servicePaths, ...otherPaths]),
+  )
+    .filter(isInternal)
+    .map((path) => generateXML(path))
     .join('');
 
   const sitemap = `<?xml version="1.0" encoding="UTF-8"?>

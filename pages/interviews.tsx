@@ -1,11 +1,11 @@
 import { ISimplePageFields } from 'types/contentful';
 import { GetStaticProps, InferGetStaticPropsType } from 'next';
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
-import { fetchContenfulAPI } from 'utils/api';
-import { simplePageQuery } from 'utils/queries';
+import { fetchContenfulAPI } from 'lib/contentful/api';
+import { simplePageQuery } from 'lib/contentful/queries';
 
-import InterviewsPage from 'components/pages/InterviewsPage';
-import { INTERVIEWS_PAGE_ID } from 'utils/constants';
+import InterviewsPage from 'features/podcast/InterviewsPage';
+import { INTERVIEWS_PAGE_ID } from 'lib/constants';
 
 const queryClient = new QueryClient();
 

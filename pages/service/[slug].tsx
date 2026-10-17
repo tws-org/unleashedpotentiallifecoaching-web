@@ -1,11 +1,11 @@
 import { IServicePageFields } from 'types/contentful';
-import ServicesPage from 'components/pages/ServicesPage';
+import ServicesPage from 'features/services/ServicesPage';
 import { GetStaticProps, InferGetStaticPropsType } from 'next';
-import { fetchContenfulAPI } from 'utils/api';
-import { servicePageQuery } from 'utils/queries';
+import { fetchContenfulAPI } from 'lib/contentful/api';
+import { servicePageQuery } from 'lib/contentful/queries';
 import { useRouter } from 'next/router';
 import ErrorPage from 'next/error';
-import { siteConstants } from 'utils/helpers';
+import { siteConstants } from 'lib/helpers';
 
 const Service = ({
   page,

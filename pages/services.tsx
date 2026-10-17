@@ -1,8 +1,8 @@
 import { ICoachFields, IPageFields } from 'types/contentful';
-import ServicesPage from 'components/pages/ServicesPage';
+import ServicesPage from 'features/services/ServicesPage';
 import { GetStaticProps, InferGetStaticPropsType } from 'next';
-import { fetchContenfulAPI } from 'utils/api';
-import { coachesQuery, servicesPageQuery } from 'utils/queries';
+import { fetchContenfulAPI } from 'lib/contentful/api';
+import { coachesQuery, servicesPageQuery } from 'lib/contentful/queries';
 
 const Services = ({
   page,

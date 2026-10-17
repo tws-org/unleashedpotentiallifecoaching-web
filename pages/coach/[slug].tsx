@@ -1,13 +1,13 @@
-import CoachPage from 'components/pages/CoachPage';
-import { CoachesContext } from 'contexts/CoachesContext';
+import CoachPage from 'features/coaches/CoachPage';
+import { CoachesContext } from 'features/coaches/CoachesContext';
 import { GetStaticProps, InferGetStaticPropsType } from 'next';
 import ErrorPage from 'next/error';
 import { useRouter } from 'next/router';
 import React, { useContext, useEffect } from 'react';
 import { ICoachFields } from 'types/contentful';
-import { fetchContenfulAPI } from 'utils/api';
-import { siteConstants, urlify } from 'utils/helpers';
-import { coachQuery } from 'utils/queries';
+import { fetchContenfulAPI } from 'lib/contentful/api';
+import { siteConstants, urlify } from 'lib/helpers';
+import { coachQuery } from 'lib/contentful/queries';
 
 const CoachProfile = ({
   coach,
