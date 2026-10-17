@@ -1,9 +1,15 @@
 import 'slick-carousel/slick/slick.css';
 import 'slick-carousel/slick/slick-theme.css';
 import classNames from 'classnames';
-import Slider from 'react-slick';
+import SlickSlider from 'react-slick';
 import Image from 'next/image';
 import { useMemo } from 'react';
+
+// react-slick is CommonJS with `exports.default`. Under "type": "module" the
+// Worker bundle can hand back the whole exports object, so unwrap it.
+const Slider: typeof SlickSlider =
+  (SlickSlider as unknown as { default?: typeof SlickSlider }).default ??
+  SlickSlider;
 
 interface IPhoto {
   source: string;

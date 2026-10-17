@@ -1,6 +1,6 @@
 node_modules
 .next
-yarn.lock
+pnpm-lock.yaml
 package-lock.json
 public
 coverage*

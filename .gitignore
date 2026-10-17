@@ -50,5 +50,11 @@ coverage*
 /*.eml
 
 # local setup notes (account details stay out of the public repo)
-/AWS-SETUP.md
-/CLOUDFLARE-MIGRATION.md
+/docs/AWS-SETUP.md
+/docs/CLOUDFLARE-MIGRATION.md
+/dist/
+.vinext/
+.cloudflare/
+.wrangler/
+
+tmp.txt
