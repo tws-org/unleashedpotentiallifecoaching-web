@@ -116,6 +116,34 @@ A required choice on the contact and book-time forms: Therapy, Behavioral health
 
 Suggestion: **yes, in phase 3.** **Decide** with Jess (the choices and their wording).
 
+### 4. Email deliverability (SPF, DKIM, DMARC)
+
+Suggested 2026-10-17. These 3 DNS records let Gmail check that a form email really came from the site, so it lands in the inbox and not in spam.
+
+| Record | What it proves | Where |
+| -- | -- | -- |
+| SPF | SendGrid is allowed to send for the domain | SendGrid's `em…` CNAME (return path) |
+| DKIM | The email was signed by the domain and not changed | SendGrid's `s1._domainkey` and `s2._domainkey` CNAMEs |
+| DMARC | What Gmail does when SPF or DKIM fails, and who gets reports | TXT record at `_dmarc` |
+
+Sender: `noreply@unleashedpotentiallifecoaching.com` (`utils/email/server-handler.ts`).
+
+DNS check (2026-10-17, after the move to Cloudflare DNS):
+
+- `unleashedpotentiallifecoaching.com`: the SendGrid return-path CNAME (`em1885`) is **missing**. `s1._domainkey` and `s2._domainkey` resolve to Cloudflare IPs, so they are **proxied** and DKIM can't be checked. No DMARC record.
+- `jessrebelo.com`: sends no email. No SPF or DMARC record, so anyone can fake it.
+
+Fix (before phase 1, so the baseline for the pipeline is clean):
+
+1. Cloudflare DNS → `s1._domainkey` and `s2._domainkey` → set to **DNS only** (grey cloud).
+2. Add the `em…` CNAME back. Copy the exact name and value from SendGrid → Settings → Sender Authentication. DNS only.
+3. SendGrid → Sender Authentication → **Verify**. All 3 must show verified.
+4. Add DMARC on the sending domain: TXT `_dmarc` = `v=DMARC1; p=none; rua=mailto:<reports address>`. Start with `p=none` (report only). Move to `p=quarantine` after 2 to 4 weeks of clean reports.
+5. Lock the non-sending domain `jessrebelo.com`: TXT `@` = `v=spf1 -all`, TXT `_dmarc` = `v=DMARC1; p=reject;`.
+6. Test: send one `TEST` per form. In Gmail → the email → ⋮ → **Show original**. SPF, DKIM and DMARC must all say **PASS**.
+
+Measures: the case study guardrail (real requests not in spam). Log the fix in the change log.
+
 ## Rollout (one change at a time, logged in the case study change log)
 
 | Phase | Change | Measures |
