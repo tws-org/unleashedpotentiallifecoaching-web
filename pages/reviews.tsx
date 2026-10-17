@@ -1,12 +1,12 @@
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
-import ReviewsPage from 'components/pages/ReviewsPage';
+import ReviewsPage from 'features/reviews/ReviewsPage';
 import { GetStaticProps, InferGetStaticPropsType } from 'next';
 import React from 'react';
-import { IPageIds } from 'utils/types';
+import { IPageIds } from 'lib/types';
 import { IReviewFields } from 'types/contentful';
-import { fetchContenfulAPI } from 'utils/api';
-import { reviewsQuery, simplePageQuery } from 'utils/queries';
-import { REVIEWS_PAGE_ID } from 'utils/constants';
+import { fetchContenfulAPI } from 'lib/contentful/api';
+import { reviewsQuery, simplePageQuery } from 'lib/contentful/queries';
+import { REVIEWS_PAGE_ID } from 'lib/constants';
 
 const queryClient = new QueryClient();
 

@@ -1,13 +1,13 @@
-import Container from 'layouts/Container';
+import Container from 'components/layout/Container';
 import { IInterviewsFields, ISimplePageFields } from 'types/contentful';
 import { useEffect, useState } from 'react';
-import { useGetPosts } from 'utils/api';
-import { interviewCollectionQuery } from 'utils/queries';
-import SimplePageLayout from 'layouts/SimplePageLayout';
+import { useGetPosts } from 'lib/contentful/api';
+import { interviewCollectionQuery } from 'lib/contentful/queries';
+import SimplePageLayout from 'components/layout/SimplePageLayout';
 import Link from 'next/link';
 import Image from 'next/legacy/image';
 import { format } from 'date-fns';
-import usePagination from 'hooks/usePagination';
+import usePagination from 'lib/hooks/usePagination';
 
 interface Props {
   page: ISimplePageFields;

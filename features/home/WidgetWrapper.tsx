@@ -1,4 +1,4 @@
-import Widget from 'components/molecules/Widget';
+import Widget from 'features/home/Widget';
 
 interface Props {
   widgets: {

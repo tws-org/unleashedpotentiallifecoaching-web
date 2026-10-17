@@ -1,12 +1,12 @@
 import dynamic from 'next/dynamic';
-import Container from 'layouts/Container';
+import Container from 'components/layout/Container';
 import { ISimplePageFields } from 'types/contentful';
 import { useEffect, useState } from 'react';
-import { useGetPosts } from 'utils/api';
-import { podcastPageQuery } from 'utils/queries';
-import SimplePageLayout from 'layouts/SimplePageLayout';
-import usePagination from 'hooks/usePagination';
-const Video = dynamic(() => import('components/organisms/podcast/Video'));
+import { useGetPosts } from 'lib/contentful/api';
+import { podcastPageQuery } from 'lib/contentful/queries';
+import SimplePageLayout from 'components/layout/SimplePageLayout';
+import usePagination from 'lib/hooks/usePagination';
+const Video = dynamic(() => import('features/podcast/Video'));
 
 interface Props {
   page: ISimplePageFields;

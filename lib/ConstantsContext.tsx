@@ -1,5 +1,5 @@
 import React, { createContext } from 'react';
-import { siteConstants } from 'utils/helpers';
+import { siteConstants } from 'lib/helpers';
 
 interface ContextProps {
   banner_url: string;

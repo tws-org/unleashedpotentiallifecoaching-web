@@ -2,18 +2,12 @@
 
 import React from 'react';
 import { Formik, Form, Field, ErrorMessage } from 'formik';
-import * as Yup from 'yup';
-import { useEmails, Form as EmailsForm } from 'contexts/EmailsContext';
-import Button from 'components/atoms/Button';
-
-const validationSchema = Yup.object().shape({
-  fullName: Yup.string().required('Full name is required'),
-  email: Yup.string().email('Invalid email').required('Email is required'),
-  phone: Yup.string()
-    .matches(/^[0-9]{10}$/, 'Phone number must be 10 digits')
-    .required('Phone number is required'),
-  message: Yup.string().required('Message is required'),
-});
+import { contactSchema } from 'lib/forms/schemas';
+import {
+  useEmails,
+  Form as EmailsForm,
+} from 'features/forms/FormSubmissionContext';
+import Button from 'components/ui/Button';
 
 const initialValues = {
   fullName: '',
@@ -46,7 +40,7 @@ const ContactForm = () => {
     <div className="w-full sm:w-1/2">
       <Formik
         initialValues={initialValues as EmailsForm}
-        validationSchema={validationSchema}
+        validationSchema={contactSchema}
         onSubmit={handleSubmit}
       >
         {({ isSubmitting }) => (

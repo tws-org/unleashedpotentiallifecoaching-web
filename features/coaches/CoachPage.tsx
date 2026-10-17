@@ -1,8 +1,8 @@
-import BasicPage from 'components/organisms/coach/BasicPage';
-import SiteHead from 'components/shared/SiteHead';
-import { ConstantsContext } from 'contexts/ConstantsContext';
-import Container from 'layouts/Container';
-import FadeInContainer from 'layouts/FadeInContainer';
+import BasicPage from 'features/coaches/BasicPage';
+import SiteHead from 'components/layout/SiteHead';
+import { ConstantsContext } from 'lib/ConstantsContext';
+import Container from 'components/layout/Container';
+import FadeInContainer from 'components/layout/FadeInContainer';
 import React, { useContext } from 'react';
 import { ICoachFields } from 'types/contentful';
 

@@ -1,15 +1,11 @@
 import dynamic from 'next/dynamic';
-import Container from 'layouts/Container';
+import Container from 'components/layout/Container';
 import { IReviewFields, ISimplePageFields } from 'types/contentful';
-import SimplePageLayout from 'layouts/SimplePageLayout';
+import SimplePageLayout from 'components/layout/SimplePageLayout';
 import { useRef } from 'react';
 
-const ReviewBlock = dynamic(
-  () => import('components/organisms/reviews/ReviewBlock'),
-);
-const ReviewForm = dynamic(
-  () => import('components/organisms/reviews/ReviewForm'),
-);
+const ReviewBlock = dynamic(() => import('features/reviews/ReviewBlock'));
+const ReviewForm = dynamic(() => import('features/forms/ReviewForm'));
 
 interface Props {
   allReviews: IReviewFields[];

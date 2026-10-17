@@ -1,4 +1,4 @@
-import CoachCard from 'components/molecules/CoachCard';
+import CoachCard from 'features/coaches/CoachCard';
 import React from 'react';
 import { ICoachFields } from 'types/contentful';
 

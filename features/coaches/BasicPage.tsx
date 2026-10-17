@@ -1,5 +1,5 @@
-import Biography from 'components/molecules/coach/Biography';
-import ProfileHeader from 'components/molecules/coach/ProfileHeader';
+import Biography from 'features/coaches/Biography';
+import ProfileHeader from 'features/coaches/ProfileHeader';
 
 const BasicPage = ({
   name,

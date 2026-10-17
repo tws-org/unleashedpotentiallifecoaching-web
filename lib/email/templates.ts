@@ -1,7 +1,17 @@
-import { formatDateToReadableString } from 'utils/helpers';
-import { BookingForm, ContactForm, ReviewForm } from 'utils/types';
+import { formatDateToReadableString } from 'lib/helpers';
+import type {
+  BookingFormValues,
+  ContactFormValues,
+  ReviewFormValues,
+} from 'lib/forms/schemas';
 
-export const reviewTemplate = (review: ReviewForm) => {
+// The browser sends dates as ISO strings (JSON).
+type BookingEmail = Omit<BookingFormValues, 'eventDate'> & {
+  eventDate: string;
+  selectCoach?: string;
+};
+
+export const reviewTemplate = (review: ReviewFormValues) => {
   const {
     fullName,
     email,
@@ -38,7 +48,7 @@ export const reviewTemplate = (review: ReviewForm) => {
   };
 };
 
-export const contactTemplate = (contact: ContactForm) => {
+export const contactTemplate = (contact: ContactFormValues) => {
   const emailSubject =
     'Someone contacted you on unleashedpotentiallifecoaching.com';
 
@@ -58,7 +68,7 @@ export const contactTemplate = (contact: ContactForm) => {
   };
 };
 
-export const bookingTemplate = (booking: BookingForm) => {
+export const bookingTemplate = (booking: BookingEmail) => {
   const {
     comments,
     email,

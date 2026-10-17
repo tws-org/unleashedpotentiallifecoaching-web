@@ -1,8 +1,8 @@
-import AnimatedButton from 'components/atoms/AnimatedButton';
-import Carousel from 'components/atoms/Carousel';
+import AnimatedButton from 'components/ui/AnimatedButton';
+import Carousel from 'components/ui/Carousel';
 import Link from 'next/link';
 import React, { useMemo } from 'react';
-import { CTA_CAROUSEL_ITEMS } from 'utils/constants';
+import { CTA_CAROUSEL_ITEMS } from 'lib/constants';
 
 const CarouselCTA = ({
   buttonLink,

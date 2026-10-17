@@ -8,7 +8,7 @@ import {
   SERVICES_OPTIONS,
   SITE_NAVS,
   SITE_TITLE,
-} from './constants';
+} from 'lib/constants';
 
 export const urlify = (str: string): string =>
   str.replace(/\s+/g, '-').toLowerCase();

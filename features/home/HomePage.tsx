@@ -1,7 +1,7 @@
-import FadeInContainer from 'layouts/FadeInContainer';
-import SiteHead from 'components/shared/SiteHead';
-import HomeBanner from 'components/organisms/home/Banner';
-import Container from 'layouts/Container';
+import FadeInContainer from 'components/layout/FadeInContainer';
+import SiteHead from 'components/layout/SiteHead';
+import HomeBanner from 'features/home/HomeBanner';
+import Container from 'components/layout/Container';
 import { ICoachFields, IHomePageFields } from 'types/contentful';
 import { useMemo } from 'react';
 
@@ -11,15 +11,11 @@ interface Props {
 }
 
 import dynamic from 'next/dynamic';
-import ButtonContent from 'components/shared/ButtonContent';
+import ButtonContent from 'components/ui/ButtonContent';
 
-const FeaturedMessage = dynamic(
-  () => import('components/organisms/home/FeaturedMessage'),
-);
-const CarouselCTA = dynamic(() => import('components/molecules/CarouselCTA'));
-const WidgetWrapper = dynamic(
-  () => import('components/organisms/home/WidgetWrapper'),
-);
+const FeaturedMessage = dynamic(() => import('features/home/FeaturedMessage'));
+const CarouselCTA = dynamic(() => import('features/home/CarouselCTA'));
+const WidgetWrapper = dynamic(() => import('features/home/WidgetWrapper'));
 
 const HomePage = ({ page, coaches }: Props) => {
   const widgets = useMemo(

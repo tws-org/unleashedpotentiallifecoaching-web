@@ -2,7 +2,7 @@ import { useState } from 'react';
 import dynamic from 'next/dynamic';
 import Image from 'next/legacy/image';
 
-const BookTimeUp = dynamic(() => import('components/shared/BookTimePopup'));
+const BookTimeUp = dynamic(() => import('features/forms/BookingPopup'));
 
 const ServiceCard = ({
   name,

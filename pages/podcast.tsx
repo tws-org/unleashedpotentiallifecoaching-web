@@ -1,11 +1,11 @@
 import React from 'react';
-import PodcastPage from 'components/pages/PodcastPage';
+import PodcastPage from 'features/podcast/PodcastPage';
 import { GetStaticProps, InferGetStaticPropsType } from 'next';
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
-import { fetchContenfulAPI } from 'utils/api';
-import { simplePageQuery } from 'utils/queries';
+import { fetchContenfulAPI } from 'lib/contentful/api';
+import { simplePageQuery } from 'lib/contentful/queries';
 
-import { PODCAST_PAGE_ID } from 'utils/constants';
+import { PODCAST_PAGE_ID } from 'lib/constants';
 
 const queryClient = new QueryClient();
 

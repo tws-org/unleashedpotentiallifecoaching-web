@@ -1,9 +1,9 @@
-import SiteHead from 'components/shared/SiteHead';
-import Container from 'layouts/Container';
-import FadeInContainer from 'layouts/FadeInContainer';
+import SiteHead from 'components/layout/SiteHead';
+import Container from 'components/layout/Container';
+import FadeInContainer from 'components/layout/FadeInContainer';
 import Image from 'next/legacy/image';
 import Link from 'next/link';
-import { urlify } from 'utils/helpers';
+import { urlify } from 'lib/helpers';
 import {
   AiOutlineFacebook,
   AiOutlineInstagram,
@@ -14,7 +14,7 @@ import { IBlogPostFields, IReviewFields } from 'types/contentful';
 import { documentToReactComponents } from '@contentful/rich-text-react-renderer';
 import { useRouter } from 'next/router';
 import { useContext } from 'react';
-import { ConstantsContext } from 'contexts/ConstantsContext';
+import { ConstantsContext } from 'lib/ConstantsContext';
 
 interface Props {
   post: IBlogPostFields;

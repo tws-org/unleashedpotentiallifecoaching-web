@@ -1,5 +1,5 @@
 import type { NextApiRequest, NextApiResponse } from 'next';
-import sendSeverEmail from 'utils/email/server-handler';
+import sendSeverEmail from 'lib/email/server-handler';
 
 const sendEmailHandler = async (req: NextApiRequest, res: NextApiResponse) => {
   try {

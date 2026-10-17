@@ -1,7 +1,7 @@
 import styled from 'styled-components';
 import { documentToReactComponents } from '@contentful/rich-text-react-renderer';
-import { fetchContenfulAPI } from 'utils/api';
-import { featuredReview } from 'utils/queries';
+import { fetchContenfulAPI } from 'lib/contentful/api';
+import { featuredReview } from 'lib/contentful/queries';
 import { keepPreviousData, useQuery } from '@tanstack/react-query';
 import { IReviewFields } from 'types/contentful';
 

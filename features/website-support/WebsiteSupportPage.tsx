@@ -1,5 +1,5 @@
-import Container from 'layouts/Container';
-import SiteHead from 'components/shared/SiteHead';
+import Container from 'components/layout/Container';
+import SiteHead from 'components/layout/SiteHead';
 import { useFormik } from 'formik';
 import * as Yup from 'yup';
 import { useState } from 'react';

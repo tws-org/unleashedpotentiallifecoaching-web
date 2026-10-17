@@ -13,13 +13,17 @@ import {
   contactTemplate,
   reviewTemplate,
   bookingTemplate,
-} from 'utils/email/templates';
-import sendClientEmail from 'utils/email/client-handler';
-import { FAILED_EMAIL_MESSAGE, successEmailMessage } from 'utils/constants';
+} from 'lib/email/templates';
+import sendClientEmail from 'features/forms/submit-client';
+import { FAILED_EMAIL_MESSAGE, successEmailMessage } from 'lib/constants';
 import { toast } from 'react-toastify';
-import { BookingForm, ContactForm, ReviewForm } from 'utils/types';
+import type {
+  BookingFormValues,
+  ContactFormValues,
+  ReviewFormValues,
+} from 'lib/forms/schemas';
 
-export type Form = ContactForm | ReviewForm | BookingForm;
+export type Form = ContactFormValues | ReviewFormValues | BookingFormValues;
 
 interface EmailsContextType {
   form: Form | null;
@@ -79,9 +83,9 @@ export const EmailsProvider: React.FC<EmailsProviderProps> = ({ children }) => {
     switch (templateName) {
       case 'review':
       case 'review-form':
-        return reviewTemplate(clonedForm as ReviewForm);
+        return reviewTemplate(clonedForm);
       case 'contact':
-        return contactTemplate(clonedForm as ContactForm);
+        return contactTemplate(clonedForm);
       case 'book-time':
         return bookingTemplate({
           ...clonedForm,

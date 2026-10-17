@@ -1,7 +1,7 @@
 import Link from 'next/link';
 import React from 'react';
-import ImageWrapper from 'components/atoms/ImageWrapper';
-import { urlify } from 'utils/helpers';
+import ImageWrapper from 'components/ui/ImageWrapper';
+import { urlify } from 'lib/helpers';
 
 const CoachCard = ({
   name,

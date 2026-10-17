@@ -1,6 +1,6 @@
-import FadeInContainer from 'layouts/FadeInContainer';
-import PageBanner from 'components/shared/PageBanner';
-import SiteHead from 'components/shared/SiteHead';
+import FadeInContainer from 'components/layout/FadeInContainer';
+import PageBanner from 'components/layout/PageBanner';
+import SiteHead from 'components/layout/SiteHead';
 import { ISimplePageFields } from 'types/contentful';
 
 interface Props {

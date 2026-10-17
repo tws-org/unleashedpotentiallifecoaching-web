@@ -1,22 +1,12 @@
 import { Formik, Form, Field, ErrorMessage } from 'formik';
-import * as Yup from 'yup';
-import { useEmails, Form as EmailsForm } from 'contexts/EmailsContext';
-import Button from 'components/atoms/Button';
+import { bookingSchema } from 'lib/forms/schemas';
+import {
+  useEmails,
+  Form as EmailsForm,
+} from 'features/forms/FormSubmissionContext';
+import Button from 'components/ui/Button';
 import DatePicker from 'react-datepicker';
 import 'react-datepicker/dist/react-datepicker.css';
-
-const validationSchema = Yup.object().shape({
-  fullName: Yup.string().required('Full name is required'),
-  email: Yup.string().email('Invalid email').required('Email is required'),
-  phone: Yup.string()
-    .matches(/^[0-9]{10}$/, 'Invalid phone number')
-    .required('Phone number is required'),
-  comments: Yup.string(),
-  eventDate: Yup.date()
-    .required('Event date and time is required')
-    .min(new Date(), 'Event date and time must be in the future')
-    .typeError('Please select a valid date and time'),
-});
 
 const BookTimeForm = () => {
   const { setForm, setDidSend, setEmailTemplate } = useEmails();
@@ -34,7 +24,7 @@ const BookTimeForm = () => {
     { setSubmitting }: { setSubmitting: (isSubmitting: boolean) => void },
   ) => {
     try {
-      setForm(values as EmailsForm);
+      setForm(bookingSchema.cast(values));
       setDidSend(true);
       setEmailTemplate('book-time');
     } catch (error) {
@@ -47,7 +37,7 @@ const BookTimeForm = () => {
     <div className="max-w-md mx-auto">
       <Formik
         initialValues={initialValues}
-        validationSchema={validationSchema}
+        validationSchema={bookingSchema}
         onSubmit={onSubmit}
       >
         {({ setFieldValue, isSubmitting }) => {

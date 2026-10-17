@@ -1,14 +1,14 @@
 import { useEffect, useId, useMemo, useState } from 'react';
 import dynamic from 'next/dynamic';
 import styled from 'styled-components';
-import Button from 'components/atoms/Button';
+import Button from 'components/ui/Button';
 import { documentToReactComponents } from '@contentful/rich-text-react-renderer';
 import { useRouter } from 'next/router';
-import Carousel from 'components/atoms/Carousel';
-import { PROFILE_CAROUSEL_ITEMS } from 'utils/constants';
-import { useEmails } from 'contexts/EmailsContext';
+import Carousel from 'components/ui/Carousel';
+import { PROFILE_CAROUSEL_ITEMS } from 'lib/constants';
+import { useEmails } from 'features/forms/FormSubmissionContext';
 
-const BookTimeUp = dynamic(() => import('components/shared/BookTimePopup'));
+const BookTimeUp = dynamic(() => import('features/forms/BookingPopup'));
 
 interface Props {
   name: string;

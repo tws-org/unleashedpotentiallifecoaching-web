@@ -1,8 +1,8 @@
 import { IHomePageFields, ICoachFields } from 'types/contentful';
-import HomePage from 'components/pages/HomePage';
+import HomePage from 'features/home/HomePage';
 import { GetStaticProps, InferGetServerSidePropsType } from 'next';
-import { fetchContenfulAPI } from 'utils/api';
-import { homePageQuery, coachesQuery } from 'utils/queries';
+import { fetchContenfulAPI } from 'lib/contentful/api';
+import { homePageQuery, coachesQuery } from 'lib/contentful/queries';
 
 const Home = ({
   page,

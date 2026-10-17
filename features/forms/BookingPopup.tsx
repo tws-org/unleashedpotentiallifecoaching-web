@@ -1,7 +1,7 @@
 // @ts-nocheck
 import { Fragment } from 'react';
 import { Dialog, Transition } from '@headlessui/react';
-import BookTimeForm from 'components/molecules/BookTimeForm';
+import BookTimeForm from 'features/forms/BookingForm';
 
 interface Props {
   open: boolean;

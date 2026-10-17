@@ -1,24 +1,12 @@
-import Button from 'components/atoms/Button';
+import Button from 'components/ui/Button';
 import { Formik, Form, Field, ErrorMessage } from 'formik';
-import * as Yup from 'yup';
+import { reviewSchema } from 'lib/forms/schemas';
 import { useContext } from 'react';
-import { ConstantsContext } from 'contexts/ConstantsContext';
-import { useEmails, Form as ReviewFormType } from 'contexts/EmailsContext';
-
-const validationSchema = Yup.object().shape({
-  fullName: Yup.string().required('Full name is required'),
-  email: Yup.string().email('Invalid email').required('Email is required'),
-  phone: Yup.string()
-    .matches(/^[0-9]{10}$/, 'Phone number must be 10 digits')
-    .required('Phone number is required'),
-  rating: Yup.string().required('Please rate our services'),
-  explanation: Yup.string().required('Please tell us what you liked best'),
-  improvements: Yup.string().required('Please tell us how we can improve'),
-  recommend: Yup.string().required(
-    'Please let us know if you would recommend us',
-  ),
-  comments: Yup.string(),
-});
+import { ConstantsContext } from 'lib/ConstantsContext';
+import {
+  useEmails,
+  Form as ReviewFormType,
+} from 'features/forms/FormSubmissionContext';
 
 const ReviewForm = () => {
   const { setForm, setDidSend, setEmailTemplate } = useEmails();
@@ -53,7 +41,7 @@ const ReviewForm = () => {
         recommend: '',
         comments: '',
       }}
-      validationSchema={validationSchema}
+      validationSchema={reviewSchema}
       onSubmit={handleSubmit}
     >
       {({ isSubmitting }) => {

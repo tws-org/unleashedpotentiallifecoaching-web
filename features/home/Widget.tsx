@@ -1,4 +1,4 @@
-import ImageWrapper from 'components/atoms/ImageWrapper';
+import ImageWrapper from 'components/ui/ImageWrapper';
 import styled from 'styled-components';
 
 interface Props {

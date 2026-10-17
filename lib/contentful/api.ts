@@ -2,7 +2,7 @@ import {
   NEXT_PUBLIC_CONTENTFUL_GRAPHQL_API_URL,
   NEXT_PUBLIC_CONTENTFUL_MANAGEMENT_API_ACCESS_TOKEN,
   headers,
-} from 'utils/constants';
+} from 'lib/constants';
 import { keepPreviousData, useQuery } from '@tanstack/react-query';
 
 export async function fetchContenfulAPI(query: string, variables: any) {

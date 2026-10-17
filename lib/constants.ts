@@ -11,8 +11,8 @@ export const successEmailMessage = (page: string) =>
 
 export const SITE_URL =
   process.env.NODE_ENV === 'production'
-    ? 'https://www.jessrebelo.com/'
-    : 'http://localhost:3000';
+    ? 'https://jessrebelo.com/'
+    : 'http://localhost:3001/';
 
 export const CONTACT_INFO = [
   'Jessica: (631) 432-8897',

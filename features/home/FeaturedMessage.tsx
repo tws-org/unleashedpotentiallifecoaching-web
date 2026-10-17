@@ -1,5 +1,5 @@
-import ImageWrapper from 'components/atoms/ImageWrapper';
-import { ConstantsContext } from 'contexts/ConstantsContext';
+import ImageWrapper from 'components/ui/ImageWrapper';
+import { ConstantsContext } from 'lib/ConstantsContext';
 import React, { useContext } from 'react';
 import styled from 'styled-components';
 

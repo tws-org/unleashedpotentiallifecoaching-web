@@ -1,15 +1,15 @@
 import styled from 'styled-components';
 import { documentToReactComponents } from '@contentful/rich-text-react-renderer';
 import { BLOCKS } from '@contentful/rich-text-types';
-import ServiceCard from 'components/molecules/ServiceCard';
-import Container from 'layouts/Container';
-import ContentWrapper from 'layouts/ContentWrapper';
+import ServiceCard from 'features/services/ServiceCard';
+import Container from 'components/layout/Container';
+import ContentWrapper from 'components/layout/ContentWrapper';
 import React from 'react';
 import { ICoachFields, IPageFields } from 'types/contentful';
-import { urlify } from 'utils/helpers';
-import SimplePageLayout from 'layouts/SimplePageLayout';
-import CarouselCTA from 'components/molecules/CarouselCTA';
-import ButtonContent from 'components/shared/ButtonContent';
+import { urlify } from 'lib/helpers';
+import SimplePageLayout from 'components/layout/SimplePageLayout';
+import CarouselCTA from 'features/home/CarouselCTA';
+import ButtonContent from 'components/ui/ButtonContent';
 
 interface Props {
   coaches: ICoachFields[];

@@ -2,7 +2,7 @@ import { useContext, Fragment } from 'react';
 import { Disclosure, Menu, Transition } from '@headlessui/react';
 import Link from 'next/link';
 import { XMarkIcon, Bars4Icon } from '@heroicons/react/24/outline';
-import { ConstantsContext } from 'contexts/ConstantsContext';
+import { ConstantsContext } from 'lib/ConstantsContext';
 
 const Header = () => {
   const { site_navigation } = useContext(ConstantsContext);
