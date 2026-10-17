@@ -9,7 +9,7 @@ Recorded: 2026-10-16
 
 2 good client requests a month in the inbox by 2026-12-01 (stretch goal: 5). Baseline, 2026-08-16 to 2026-10-16: 0 good, 1 real, 3 spam.
 
-This design covers the forms and the email pipeline. The content refresh toward therapy is phase 4 and gets its own doc.
+This design covers the forms and the email pipeline. The content refresh toward therapy is phase 2 and gets its own doc.
 
 ## Current state
 
@@ -44,7 +44,7 @@ This design covers the forms and the email pipeline. The content refresh toward 
 **Not in scope**
 
 - A CRM, an inbox replacement, or a new email provider.
-- The content refresh (phase 4).
+- The content refresh (phase 2).
 
 ## Design
 
@@ -114,7 +114,7 @@ A required choice on the contact and book-time forms: Therapy, Behavioral health
 - Pros: measures fit at the source, so "good request" is counted by the form and not only by reading emails. Visitors see that she offers therapy.
 - Cons: one more field. It also changes the form, so ship it as its own step in the change log.
 
-Suggestion: **yes, in phase 3.** **Decide** with Jess (the choices and their wording).
+Suggestion: **yes, in phase 2.** **Decide** with Jess (the choices and their wording).
 
 ### 4. Email deliverability (SPF, DKIM, DMARC)
 
@@ -144,16 +144,25 @@ Fix (before phase 1, so the baseline for the pipeline is clean):
 
 Measures: the case study guardrail (real requests not in spam). Log the fix in the change log.
 
-## Rollout (one change at a time, logged in the case study change log)
+## Project phases (Peter, 2026-10-17)
 
-| Phase | Change | Measures |
+| Phase | Scope | Done when |
 | -- | -- | -- |
-| 1 | Pipeline and tracking: IDs, record, SendGrid tags, GA `generate_lead`. Same forms, same email | Submits and sends can now be counted |
-| 2 | Spam protection on all 3 forms (review form first if split) | Spam in the inbox, blocked count |
-| 3 | "What are you looking for?" field | Share of therapy requests |
-| 4 | Content refresh toward therapy (own doc) | Good requests a month |
+| **1. Fix the contact form and the email pipeline** (now) | The steps below: deliverability, tracking pipeline, spam protection | One test per form can be followed by its ID from the form to the inbox. Spam is blocked and logged |
+| **2. Content update with Jess** | Her content refresh toward therapy. Domain and SEO decisions (redirect `unleashedpotentiallifecoaching.com` to `jessrebelo.com`, `www`, HTTPS, Search Console). A way for Jess to update written content without anyone editing Contentful by hand. Defined user journeys and goals, tracked step by step, so drop-offs can be seen. The "What are you looking for?" field (decision 3) | The updates are live and each journey step is measured |
+| **3. Review and adjust** | 6 weeks after phase 2 is complete: read the journey data, find where visitors drop off, fix those steps | Drop-off fixes shipped and measured |
 
-Leave at least 1 week between phases where the timeline allows.
+**The goal clock** (2 good requests a month, stretch 5) starts when phase 2 is complete. Peter tells Jess this. To confirm with Jess, then update the target date in the baseline and the case study (they say 2026-12-01).
+
+### Phase 1 steps (one change at a time, logged in the case study change log)
+
+| Step | Change | Measures |
+| -- | -- | -- |
+| 1a | Email deliverability: SPF, DKIM, DMARC (decision 4). Done 2026-10-17 | Real requests not in spam |
+| 1b | Pipeline and tracking: IDs, record, SendGrid tags, GA `generate_lead`. Same forms, same email | Submits and sends can now be counted |
+| 1c | Spam protection on all 3 forms (review form first if split) | Spam in the inbox, blocked count |
+
+Leave at least 1 week between steps where the timeline allows.
 
 ## Testing
 

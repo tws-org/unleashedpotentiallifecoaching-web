@@ -20,9 +20,9 @@ Rule: outcomes first. Lead with what changed for Jess, with the number.
 
 ## Change log
 
-| Date | Change | Expected effect |
-| -- | -- | -- |
-| | | |
+| Date       | Change                                    | Expected effect             |
+| ---------- | ----------------------------------------- | --------------------------- |
+| 10/17/2026 | SPF, DKIM, DMARC fixed after the DNS move | Fewer real requests in spam |
 
 ## Headline
 
