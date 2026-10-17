@@ -161,6 +161,7 @@ Measures: the case study guardrail (real requests not in spam). Log the fix in t
 | 1a | Email deliverability: SPF, DKIM, DMARC (decision 4). Done 2026-10-17 | Real requests not in spam |
 | 1b | Pipeline and tracking: IDs, record, SendGrid tags, GA `generate_lead`. Same forms, same email | Submits and sends can now be counted |
 | 1c | Spam protection on all 3 forms (review form first if split) | Spam in the inbox, blocked count |
+| 1d | GA dashboard of the form journey (visit → form view → form start → submit, by form type). Demo to Jess; plan phase 2 in that meeting | Drop-off between each step |
 
 Leave at least 1 week between steps where the timeline allows.
 
