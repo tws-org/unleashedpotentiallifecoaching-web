@@ -4,7 +4,7 @@ import { ConstantsContext } from '../../lib/ConstantsContext';
 import { ReviewFormValues, reviewSchema } from '../../lib/forms/schemas';
 import { useEmails } from './FormSubmissionContext';
 import Honeypot from './HoneyPot';
-import Button from '../../components/ui/Button';
+import SubmitButton from './SubmitButton';
 import Turnstile from './Turnstile';
 
 const initialValues = {
@@ -47,7 +47,7 @@ const ReviewForm = () => {
       validationSchema={reviewSchema}
       onSubmit={handleSubmit}
     >
-      {({ isSubmitting }) => {
+      {() => {
         return (
           <Form className="space-y-4 forrest-form">
             <Honeypot idPrefix="review" />
@@ -227,12 +227,7 @@ const ReviewForm = () => {
               />
             </div>
             <Turnstile />
-            <Button
-              disabled={isSubmitting}
-              label={
-                isSubmitting ? 'Submitting...' : ('Submit Review' as string)
-              }
-            />
+            <SubmitButton label="Submit Review" busyLabel="Submitting..." />
           </Form>
         );
       }}

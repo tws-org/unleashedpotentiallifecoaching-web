@@ -28,6 +28,7 @@ const Turnstile = () => {
       sitekey: SITE_KEY,
       callback: (token: string) => setFieldValue('turnstileToken', token),
       'expired-callback': () => setFieldValue('turnstileToken', ''),
+      'error-callback': () => setFieldValue('turnstileToken', ''),
     });
     return () => api.remove(widgetId);
   }, [ready, submitCount, setFieldValue]);

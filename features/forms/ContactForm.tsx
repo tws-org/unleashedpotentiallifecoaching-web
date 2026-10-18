@@ -5,7 +5,7 @@ import { Formik, Form, Field, ErrorMessage } from 'formik';
 import { ContactFormValues, contactSchema } from '../../lib/forms/schemas';
 import { useEmails } from './FormSubmissionContext';
 import Honeypot from './HoneyPot';
-import Button from '../../components/ui/Button';
+import SubmitButton from './SubmitButton';
 import Turnstile from './Turnstile';
 
 const initialValues = {
@@ -44,7 +44,7 @@ const ContactForm = () => {
         validationSchema={contactSchema}
         onSubmit={handleSubmit}
       >
-        {({ isSubmitting }) => (
+        {() => (
           <Form className="space-y-4 forrest-form">
             <Honeypot idPrefix="contact" />
             <div>
@@ -128,10 +128,7 @@ const ContactForm = () => {
               />
             </div>
             <Turnstile />
-            <Button
-              disabled={isSubmitting}
-              label={isSubmitting ? 'Sending...' : 'Send'}
-            />
+            <SubmitButton label="Send" busyLabel="Sending..." />
           </Form>
         )}
       </Formik>

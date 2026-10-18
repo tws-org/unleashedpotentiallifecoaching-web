@@ -8,7 +8,10 @@ export const verifyTurnstile = async (
   token: unknown,
   ip: string | null,
 ): Promise<SpamResult> => {
-  if (typeof token !== 'string' || !token) return 'blocked';
+  if (typeof token !== 'string' || !token) {
+    console.warn('Turnstile blocked: no token');
+    return 'blocked';
+  }
 
   try {
     const res = await fetch(VERIFY_URL, {
@@ -19,7 +22,12 @@ export const verifyTurnstile = async (
         ...(ip ? { remoteip: ip } : {}),
       }),
     });
-    const data = (await res.json()) as { success?: boolean };
+    const data = (await res.json()) as {
+      success?: boolean;
+      'error-codes'?: string[];
+    };
+    // Log Cloudflare's reason, so `wrangler tail` shows why in one request.
+    if (!data.success) console.warn('Turnstile blocked', data['error-codes']);
     return data.success ? 'passed' : 'blocked';
   } catch (err) {
     console.error('verifyTurnstile failed', err);

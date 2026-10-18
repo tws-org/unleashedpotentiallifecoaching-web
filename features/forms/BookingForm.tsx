@@ -4,7 +4,7 @@ import 'react-datepicker/dist/react-datepicker.css';
 import { bookingSchema } from '../../lib/forms/schemas';
 import { useEmails } from './FormSubmissionContext';
 import Honeypot from './HoneyPot';
-import Button from '../../components/ui/Button';
+import SubmitButton from './SubmitButton';
 import Turnstile from './Turnstile';
 
 const BookTimeForm = () => {
@@ -41,7 +41,7 @@ const BookTimeForm = () => {
         validationSchema={bookingSchema}
         onSubmit={onSubmit}
       >
-        {({ setFieldValue, isSubmitting }) => {
+        {({ setFieldValue }) => {
           return (
             <Form className="space-y-4 forrest-form">
               <Honeypot idPrefix="booking" />
@@ -160,10 +160,7 @@ const BookTimeForm = () => {
               </div>
               <div>
                 <Turnstile />
-                <Button
-                  disabled={isSubmitting}
-                  label={isSubmitting ? 'Submitting...' : 'Book Time'}
-                />
+                <SubmitButton label="Book Time" busyLabel="Submitting..." />
               </div>
             </Form>
           );
