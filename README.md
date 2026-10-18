@@ -12,7 +12,7 @@ Website for Jess Rebelo's online life coaching and trauma therapy practice.
 - [TanStack Query 5](https://tanstack.com/query/latest) for client-side pagination on the blog, podcast and interview pages
 - [Headless UI](https://headlessui.com/), [Framer Motion](https://motion.dev/), react-slick
 - [Formik](https://formik.org/) + [Yup](https://github.com/jquense/yup) forms. The Yup schemas in `lib/forms/schemas.ts` are the single source of truth: the browser and the server validate with them, and the form types are inferred from them.
-- [SendGrid](https://sendgrid.com/) for form email, sent by `pages/api/send-email.ts`. SPF, DKIM and DMARC are set up on the sending domain ([setup](docs/EMAIL-DELIVERABILITY-SETUP.md)).
+- [SendGrid](https://sendgrid.com/) for form email, sent by `app/api/submit/route.ts`. SPF, DKIM and DMARC are set up on the sending domain ([setup](docs/EMAIL-DELIVERABILITY-SETUP.md)).
 - Google Analytics via `@next/third-parties`
 
 ## Hosting

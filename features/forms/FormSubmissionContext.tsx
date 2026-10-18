@@ -9,19 +9,16 @@ import React, {
   useMemo,
   useCallback,
 } from 'react';
-import {
-  contactTemplate,
-  reviewTemplate,
-  bookingTemplate,
-} from 'lib/email/templates';
-import sendClientEmail from 'features/forms/submit-client';
-import { FAILED_EMAIL_MESSAGE, successEmailMessage } from 'lib/constants';
 import { toast } from 'react-toastify';
-import type {
+import {
   BookingFormValues,
   ContactFormValues,
+  FormType,
   ReviewFormValues,
-} from 'lib/forms/schemas';
+} from '../../lib/forms/schemas';
+import { FAILED_EMAIL_MESSAGE, successEmailMessage } from '../../lib/constants';
+
+import submitForm from './submit-client';
 
 export type Form = ContactFormValues | ReviewFormValues | BookingFormValues;
 
@@ -51,9 +48,12 @@ interface EmailsProviderProps {
   children: ReactNode;
 }
 
-function deepClone(obj: any) {
-  return JSON.parse(JSON.stringify(obj));
-}
+const FORM_TYPE_BY_TEMPLATE: Record<string, FormType> = {
+  contact: 'contact',
+  review: 'review',
+  'review-form': 'review',
+  'book-time': 'booking',
+};
 
 export const EmailsProvider: React.FC<EmailsProviderProps> = ({ children }) => {
   const [form, setForm] = useState<Form | null>(null);
@@ -61,57 +61,21 @@ export const EmailsProvider: React.FC<EmailsProviderProps> = ({ children }) => {
   const [response, setResponse] = useState<string>('');
   const [emailTemplate, setEmailTemplate] = useState<string>('');
 
-  const sendClient = useCallback(
-    async (body: string, subject: string) => {
-      try {
-        const request = await sendClientEmail({ subject, body });
-        if (request.success) {
-          return successEmailMessage(emailTemplate);
-        } else {
-          throw new Error('Failed to send email');
-        }
-      } catch (error) {
-        console.error('Error sending email:', error);
-        return FAILED_EMAIL_MESSAGE;
-      }
-    },
-    [emailTemplate],
-  );
-
-  const getTemplate = useCallback((templateName: string, formData: Form) => {
-    const clonedForm = deepClone(formData);
-    switch (templateName) {
-      case 'review':
-      case 'review-form':
-        return reviewTemplate(clonedForm);
-      case 'contact':
-        return contactTemplate(clonedForm);
-      case 'book-time':
-        return bookingTemplate({
-          ...clonedForm,
-        });
-      default:
-        throw new Error(`Unsupported email template: ${templateName}`);
-    }
-  }, []);
-
   useEffect(() => {
     if (emailTemplate && form) {
       let isMounted = true;
       const sendEmail = async () => {
-        try {
-          const template = getTemplate(emailTemplate, form);
-          const message = await sendClient(template.body, template.subject);
-          if (isMounted) {
-            setResponse(message);
-            setDidSend(true);
-          }
-        } catch (error) {
-          console.error('Error in email process:', error);
-          if (isMounted) {
-            setResponse(FAILED_EMAIL_MESSAGE);
-            setDidSend(true);
-          }
+        const formType = FORM_TYPE_BY_TEMPLATE[emailTemplate];
+        const result = formType
+          ? await submitForm(formType, form)
+          : { ok: false };
+        if (isMounted) {
+          setResponse(
+            result.ok
+              ? successEmailMessage(emailTemplate)
+              : FAILED_EMAIL_MESSAGE,
+          );
+          setDidSend(true);
         }
       };
 
@@ -121,7 +85,7 @@ export const EmailsProvider: React.FC<EmailsProviderProps> = ({ children }) => {
         isMounted = false;
       };
     }
-  }, [emailTemplate, form, getTemplate, sendClient]);
+  }, [emailTemplate, form]);
 
   const resetForm = useCallback(() => {
     setForm(null);
