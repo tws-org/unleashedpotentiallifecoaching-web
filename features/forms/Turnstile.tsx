@@ -36,8 +36,7 @@ const Turnstile = () => {
   return (
     <>
       <Script
-        src="https://challenges.cloudflare.com/turnstile/v0/api.js?render=
-  explicit"
+        src="https://challenges.cloudflare.com/turnstile/v0/api.js?render=explicit"
         onReady={() => setReady(true)}
       />
       <div ref={ref} />
