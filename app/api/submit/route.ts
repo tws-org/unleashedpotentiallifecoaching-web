@@ -13,16 +13,16 @@ export async function POST(request: Request) {
   // 1. Read the body. Reject anything that is not a known form.
   const body = await request.json().catch(() => null);
 
-  if (!body || !isFormType(body.formType)) {
-    return Response.json({ ok: false, error: 'Unknown form' }, { status: 400 });
-  }
-  const { formType } = body;
-
   // 2. Validate on the server with the same Yup schema the browser uses.
   let fields;
 
+  const formType: unknown = body?.formType;
+
+  if (!isFormType(formType)) {
+    return Response.json({ ok: false, error: 'Unknown form' }, { status: 400 });
+  }
+
   try {
-    //@ts-ignore
     fields = await formSchemas[formType].validate(body.fields, {
       abortEarly: false,
       stripUnknown: true,
@@ -48,7 +48,7 @@ export async function POST(request: Request) {
   // 4. Fail open: losing a record is OK, losing a client request is not.
   let stored = true;
   try {
-    putSubmission(record);
+    await putSubmission(record);
   } catch (err) {
     stored = false;
     console.error('putSubmission failed', id, err);
