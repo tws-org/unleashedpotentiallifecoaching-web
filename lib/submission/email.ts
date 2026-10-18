@@ -3,7 +3,7 @@ import type { FormType, FormValues } from '../forms/schemas';
 const SENDGRID_API = 'https://api.sendgrid.com/v3/mail/send';
 const FROM = {
   email: 'noreply@unleashedpotentiallifecoaching.com',
-  name: 'Jess Rebelo website',
+  name: 'Website forms',
 };
 
 const ESCAPES: Record<string, string> = {

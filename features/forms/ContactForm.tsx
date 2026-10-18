@@ -2,25 +2,26 @@
 
 import React from 'react';
 import { Formik, Form, Field, ErrorMessage } from 'formik';
-import { contactSchema } from 'lib/forms/schemas';
-import {
-  useEmails,
-  Form as EmailsForm,
-} from 'features/forms/FormSubmissionContext';
-import Button from 'components/ui/Button';
+import { ContactFormValues, contactSchema } from '../../lib/forms/schemas';
+import { useEmails } from './FormSubmissionContext';
+import Honeypot from './HoneyPot';
+import Button from '../../components/ui/Button';
+import Turnstile from './Turnstile';
 
 const initialValues = {
   fullName: '',
   email: '',
   phone: '',
   message: '',
+  website: '',
+  turnstileToken: '',
 };
 
 const ContactForm = () => {
   const { setForm, setDidSend, setEmailTemplate } = useEmails();
 
   const handleSubmit = (
-    values: EmailsForm,
+    values: ContactFormValues,
     {
       setSubmitting,
       resetForm,
@@ -39,12 +40,13 @@ const ContactForm = () => {
   return (
     <div className="w-full sm:w-1/2">
       <Formik
-        initialValues={initialValues as EmailsForm}
+        initialValues={initialValues as ContactFormValues}
         validationSchema={contactSchema}
         onSubmit={handleSubmit}
       >
         {({ isSubmitting }) => (
           <Form className="space-y-4 forrest-form">
+            <Honeypot idPrefix="contact" />
             <div>
               <label
                 htmlFor="fullName"
@@ -125,7 +127,7 @@ const ContactForm = () => {
                 className="mt-1 text-sm text-red-600"
               />
             </div>
-
+            <Turnstile />
             <Button
               disabled={isSubmitting}
               label={isSubmitting ? 'Sending...' : 'Send'}

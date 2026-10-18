@@ -2,6 +2,8 @@ import { ValidationError } from 'yup';
 import { formSchemas, isFormType } from '../../../lib/forms/schemas';
 import { buildEmail, sendEmail } from '../../../lib/submission/email';
 import { markSent, putSubmission } from '../../../lib/submission/store';
+import { verifyTurnstile } from '../../../lib/submission/turnstile';
+import { isRateLimited } from '../../../lib/submission/rate-limit';
 
 // A visitor or Peter types TEST to mark a test. Tests stay out of the counts.
 const isTestSubmission = (fields: object) =>
@@ -10,6 +12,14 @@ const isTestSubmission = (fields: object) =>
   );
 
 export async function POST(request: Request) {
+  if (await isRateLimited(request.headers.get('cf-connecting-ip'))) {
+    return Response.json(
+      { ok: false, error: 'Too many requests' },
+      {
+        status: 429,
+      },
+    );
+  }
   // 1. Read the body. Reject anything that is not a known form.
   const body = await request.json().catch(() => null);
 
@@ -17,6 +27,35 @@ export async function POST(request: Request) {
 
   if (!isFormType(formType)) {
     return Response.json({ ok: false, error: 'Unknown form' }, { status: 400 });
+  }
+  const recordBlocked = async () => {
+    const id = crypto.randomUUID();
+    await putSubmission({
+      id,
+      formType,
+      createdAt: new Date().toISOString(),
+      spamResult: 'blocked',
+      isTest: false,
+    }).catch((err) => console.error('putSubmission failed', id, err));
+    return id;
+  };
+
+  if (body.fields?.website) {
+    return Response.json({ ok: true, id: await recordBlocked() });
+  }
+
+  const spamResult = await verifyTurnstile(
+    body.fields?.turnstileToken,
+    request.headers.get('cf-connecting-ip'),
+  );
+  if (spamResult === 'blocked') {
+    await recordBlocked();
+    return Response.json(
+      { ok: false, error: 'Verification failed' },
+      {
+        status: 403,
+      },
+    );
   }
 
   // 2. Validate on the server with the same Yup schema the browser uses.
@@ -41,7 +80,7 @@ export async function POST(request: Request) {
     id,
     formType,
     createdAt: new Date().toISOString(),
-    spamResult: 'unchecked' as const, // Lesson 1c changes this
+    spamResult,
     isTest: isTestSubmission(fields),
   };
 
