@@ -15,6 +15,7 @@ env:
   NEXT_PUBLIC_CONTENTFUL_MANAGEMENT_API_ACCESS_TOKEN: ${{ secrets.NEXT_PUBLIC_CONTENTFUL_MANAGEMENT_API_ACCESS_TOKEN }}
   NEXT_PUBLIC_CONTENTFUL_SPACE_ID: ${{ secrets.NEXT_PUBLIC_CONTENTFUL_SPACE_ID }}
   NEXT_PUBLIC_CONTENTFUL_ENVIRONMENT: ${{ secrets.NEXT_PUBLIC_CONTENTFUL_ENVIRONMENT }}
+  NEXT_PUBLIC_TURNSTILE_SITE_KEY: ${{ secrets.NEXT_PUBLIC_TURNSTILE_SITE_KEY }}
 
 jobs:
   build:
@@ -27,12 +28,13 @@ jobs:
           node-version: 22
           cache: pnpm
       - run: pnpm install --frozen-lockfile
-      - run: pnpm build
+      - run: npx tsc --noEmit
+      - run: pnpm test
       - run: pnpm build:vinext
 
   deploy:
     needs: build
-    if: github.event_name != 'pull_request' && github.ref == 'refs/heads/main'
+    if: github.event_name == 'push' && github.ref == 'refs/heads/main'
     runs-on: ubuntu-latest
     environment: production
     env:
