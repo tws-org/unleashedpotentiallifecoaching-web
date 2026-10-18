@@ -16,6 +16,7 @@ const BookTimeForm = () => {
     phone: '',
     eventDate: '',
     comments: '',
+    website: '',
     turnstileToken: '',
   };
 

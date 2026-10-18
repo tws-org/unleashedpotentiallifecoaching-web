@@ -80,7 +80,7 @@ export async function POST(request: Request) {
     id,
     formType,
     createdAt: new Date().toISOString(),
-    spamResult: 'unchecked' as const, // Lesson 1c changes this
+    spamResult,
     isTest: isTestSubmission(fields),
   };
 
