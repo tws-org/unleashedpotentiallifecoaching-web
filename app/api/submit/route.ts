@@ -13,14 +13,14 @@ export async function POST(request: Request) {
   // 1. Read the body. Reject anything that is not a known form.
   const body = await request.json().catch(() => null);
 
-  // 2. Validate on the server with the same Yup schema the browser uses.
-  let fields;
-
   const formType: unknown = body?.formType;
 
   if (!isFormType(formType)) {
     return Response.json({ ok: false, error: 'Unknown form' }, { status: 400 });
   }
+
+  // 2. Validate on the server with the same Yup schema the browser uses.
+  let fields;
 
   try {
     fields = await formSchemas[formType].validate(body.fields, {
