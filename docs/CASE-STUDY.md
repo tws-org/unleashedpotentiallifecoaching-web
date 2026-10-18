@@ -23,6 +23,7 @@ Rule: outcomes first. Lead with what changed for Jess, with the number.
 | Date       | Change                                    | Expected effect             |
 | ---------- | ----------------------------------------- | --------------------------- |
 | 10/17/2026 | SPF, DKIM, DMARC fixed after the DNS move | Fewer real requests in spam |
+| 10/17/2026 | Phase 1b: `/api/submit` pipeline. Each submission gets an ID (in the subject, SendGrid and a DynamoDB record), the server builds the email, GA `generate_lead` on confirmed sends. Same forms, same email | Submits and sends can be counted and traced by ID |
 
 ## Headline
 
