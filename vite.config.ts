@@ -23,6 +23,11 @@ export default defineConfig({
       prerender: { routes: '*' },
       images: { optimizer: imagesOptimizer() },
     }),
-    cloudflare({ auxiliaryWorkers: [{ config: responseStoreServiceBinding }] }),
+    cloudflare({
+      // App Router code runs in the RSC environment; run it in workerd with
+      // the Pages Router SSR environment as its child.
+      viteEnvironment: { name: 'rsc', childEnvironments: ['ssr'] },
+      auxiliaryWorkers: [{ config: responseStoreServiceBinding }],
+    }),
   ],
 });

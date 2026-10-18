@@ -1,54 +1,32 @@
-interface Email {
-  body: string;
-  subject: string;
-  type?: string;
-}
+import { sendGAEvent } from '@next/third-parties/google';
+import { FormType } from '../../lib/forms/schemas';
 
-const sendClientEmail = async (props: Email) => {
+type SubmitResult = { ok: true; id: string } | { ok: false };
+
+// Sends raw form values. The server validates them and builds the email.
+const submitForm = async (
+  formType: FormType,
+  fields: object,
+): Promise<SubmitResult> => {
   try {
-    const response = await fetch('/api/send-email', {
+    const res = await fetch('/api/submit', {
       method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-        Accept: 'application/json',
-      },
-      body: JSON.stringify(props),
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ formType, fields }),
     });
-
-    let payload: unknown = null;
-    try {
-      payload = await response.json();
-    } catch (jsonError) {
-      // Swallow JSON errors so we can still surface the HTTP response status below.
-      payload = { parseError: jsonError };
-    }
-
-    if (!response.ok) {
-      const errorMessage =
-        typeof payload === 'object' && payload !== null && 'message' in payload
-          ? ((payload as { message?: string }).message ?? 'Unknown error')
-          : response.statusText || 'Unknown error';
-
-      throw new Error(
-        `Failed to send email. Status: ${response.status}. Message: ${errorMessage}`,
-      );
-    }
-
-    return { success: true, data: payload };
-  } catch (error) {
-    const err =
-      error instanceof Error
-        ? error
-        : new Error('Unexpected error while sending client email');
-
-    console.error('sendClientEmail error:', err);
-
-    return {
-      success: false,
-      error: err.message,
-      stack: err.stack,
+    const data = (await res.json().catch(() => ({}))) as {
+      ok?: boolean;
+      id?: string;
     };
+    if (!res.ok || !data.ok || !data.id) return { ok: false };
+
+    // Count the lead in GA only after the server says the email was sent.
+    sendGAEvent('event', 'generate_lead', { form_type: formType });
+    return { ok: true, id: data.id };
+  } catch (err) {
+    console.error('submitForm failed', err);
+    return { ok: false };
   }
 };
 
-export default sendClientEmail;
+export default submitForm;
