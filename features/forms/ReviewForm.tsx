@@ -1,19 +1,31 @@
-import Button from 'components/ui/Button';
 import { Formik, Form, Field, ErrorMessage } from 'formik';
-import { reviewSchema } from 'lib/forms/schemas';
 import { useContext } from 'react';
-import { ConstantsContext } from 'lib/ConstantsContext';
-import {
-  useEmails,
-  Form as ReviewFormType,
-} from 'features/forms/FormSubmissionContext';
+import { ConstantsContext } from '../../lib/ConstantsContext';
+import { ReviewFormValues, reviewSchema } from '../../lib/forms/schemas';
+import { useEmails } from './FormSubmissionContext';
+import Honeypot from './HoneyPot';
+import Button from '../../components/ui/Button';
+import Turnstile from './Turnstile';
+
+const initialValues = {
+  fullName: '',
+  email: '',
+  phone: '',
+  rating: '',
+  explanation: '',
+  improvements: '',
+  recommend: '',
+  comments: '',
+  website: '',
+  turnstileToken: '',
+};
 
 const ReviewForm = () => {
   const { setForm, setDidSend, setEmailTemplate } = useEmails();
   const { boolean_choices, service_options } = useContext(ConstantsContext);
 
   const handleSubmit = (
-    values: ReviewFormType,
+    values: ReviewFormValues,
     {
       setSubmitting,
       resetForm,
@@ -31,22 +43,14 @@ const ReviewForm = () => {
 
   return (
     <Formik
-      initialValues={{
-        fullName: '',
-        email: '',
-        phone: '',
-        rating: '',
-        explanation: '',
-        improvements: '',
-        recommend: '',
-        comments: '',
-      }}
+      initialValues={initialValues}
       validationSchema={reviewSchema}
       onSubmit={handleSubmit}
     >
       {({ isSubmitting }) => {
         return (
           <Form className="space-y-4 forrest-form">
+            <Honeypot idPrefix="review" />
             <div>
               <label
                 htmlFor="review-full-name"
@@ -222,10 +226,12 @@ const ReviewForm = () => {
                 className="mt-1 text-sm text-red-600"
               />
             </div>
-
+            <Turnstile />
             <Button
               disabled={isSubmitting}
-              label={isSubmitting ? 'Submitting...' : 'Submit Review'}
+              label={
+                isSubmitting ? 'Submitting...' : ('Submit Review' as string)
+              }
             />
           </Form>
         );

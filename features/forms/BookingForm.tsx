@@ -1,12 +1,11 @@
 import { Formik, Form, Field, ErrorMessage } from 'formik';
-import { bookingSchema } from 'lib/forms/schemas';
-import {
-  useEmails,
-  Form as EmailsForm,
-} from 'features/forms/FormSubmissionContext';
-import Button from 'components/ui/Button';
 import DatePicker from 'react-datepicker';
 import 'react-datepicker/dist/react-datepicker.css';
+import { bookingSchema } from '../../lib/forms/schemas';
+import { useEmails } from './FormSubmissionContext';
+import Honeypot from './HoneyPot';
+import Button from '../../components/ui/Button';
+import Turnstile from './Turnstile';
 
 const BookTimeForm = () => {
   const { setForm, setDidSend, setEmailTemplate } = useEmails();
@@ -17,6 +16,7 @@ const BookTimeForm = () => {
     phone: '',
     eventDate: '',
     comments: '',
+    turnstileToken: '',
   };
 
   const onSubmit = async (
@@ -43,6 +43,7 @@ const BookTimeForm = () => {
         {({ setFieldValue, isSubmitting }) => {
           return (
             <Form className="space-y-4 forrest-form">
+              <Honeypot idPrefix="booking" />
               <div>
                 <label
                   htmlFor="book-full-name"
@@ -157,6 +158,7 @@ const BookTimeForm = () => {
                 />
               </div>
               <div>
+                <Turnstile />
                 <Button
                   disabled={isSubmitting}
                   label={isSubmitting ? 'Submitting...' : 'Book Time'}

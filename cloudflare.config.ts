@@ -28,6 +28,10 @@ export default defineConfig({
       ...responseStore.applicationWorker.env,
       ASSETS: bindings.assets(),
       IMAGES: bindings.images(),
+      SUBMIT_LIMITER: bindings.rateLimit({
+        namespace: '1001',
+        simple: { limit: 3, period: 60 },
+      }),
     },
   }),
 });
