@@ -6,6 +6,7 @@ import { ContactFormValues, contactSchema } from '../../lib/forms/schemas';
 import { useEmails } from './FormSubmissionContext';
 import Honeypot from './HoneyPot';
 import SubmitButton from './SubmitButton';
+import { useFormTracking } from './useFormTracking';
 import Turnstile from './Turnstile';
 
 const initialValues = {
@@ -19,6 +20,7 @@ const initialValues = {
 
 const ContactForm = () => {
   const { setForm, setDidSend, setEmailTemplate } = useEmails();
+  const tracking = useFormTracking('contact');
 
   const handleSubmit = (
     values: ContactFormValues,
@@ -38,7 +40,7 @@ const ContactForm = () => {
   };
 
   return (
-    <div className="w-full sm:w-1/2">
+    <div className="w-full sm:w-1/2" {...tracking}>
       <Formik
         initialValues={initialValues as ContactFormValues}
         validationSchema={contactSchema}

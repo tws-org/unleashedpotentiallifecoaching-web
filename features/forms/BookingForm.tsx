@@ -5,10 +5,12 @@ import { bookingSchema } from '../../lib/forms/schemas';
 import { useEmails } from './FormSubmissionContext';
 import Honeypot from './HoneyPot';
 import SubmitButton from './SubmitButton';
+import { useFormTracking } from './useFormTracking';
 import Turnstile from './Turnstile';
 
 const BookTimeForm = () => {
   const { setForm, setDidSend, setEmailTemplate } = useEmails();
+  const tracking = useFormTracking('booking');
 
   const initialValues = {
     fullName: '',
@@ -35,7 +37,7 @@ const BookTimeForm = () => {
   };
 
   return (
-    <div className="max-w-md mx-auto">
+    <div className="max-w-md mx-auto" {...tracking}>
       <Formik
         initialValues={initialValues}
         validationSchema={bookingSchema}
