@@ -7,7 +7,7 @@ Website for Jess Rebelo's online life coaching and trauma therapy practice.
 ## Stack
 
 - [Next.js 15](https://nextjs.org/) (Pages Router) with [React 19](https://react.dev/) and TypeScript
-- [Contentful](https://www.contentful.com/) as the CMS, queried over GraphQL. Pages are statically generated with `getStaticProps`.
+- [Contentful](https://www.contentful.com/) as the CMS, queried over GraphQL. Pages are statically generated with `getStaticProps` and use ISR: each page returns `revalidate: 300`, so a Contentful publish shows on the site within about 5 minutes without a redeploy. Keep the value a number literal: the vinext build report reads it from the source. If Contentful fails during a rebuild, the last good page stays up.
 - [Tailwind CSS 3](https://tailwindcss.com/) and [styled-components](https://styled-components.com/)
 - [TanStack Query 5](https://tanstack.com/query/latest) for client-side pagination on the blog, podcast and interview pages
 - [Headless UI](https://headlessui.com/), [Framer Motion](https://motion.dev/), react-slick

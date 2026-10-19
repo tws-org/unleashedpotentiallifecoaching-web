@@ -40,6 +40,7 @@ export const getStaticProps: GetStaticProps = async () => {
       page,
       allReviews,
     },
+    revalidate: 300,
   };
 };
 

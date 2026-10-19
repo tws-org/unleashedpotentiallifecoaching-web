@@ -21,6 +21,12 @@ export async function fetchContenfulAPI(query: string, variables: any) {
 
     const json = await res.json();
 
+    // Throw on a failed response, so an ISR rebuild keeps the last good page
+    // instead of caching an empty one (for example on a Contentful rate limit).
+    if (!res.ok || (json?.errors && !json?.data)) {
+      throw new Error(`Contentful ${res.status}`);
+    }
+
     return json;
   } catch (error) {
     console.error(error);

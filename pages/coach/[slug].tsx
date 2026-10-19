@@ -56,6 +56,7 @@ export const getStaticProps: GetStaticProps = async ({ params }) => {
   if (!coach) {
     return {
       notFound: true,
+      revalidate: 300,
     };
   }
 
@@ -65,6 +66,7 @@ export const getStaticProps: GetStaticProps = async ({ params }) => {
       coaches,
       slug,
     },
+    revalidate: 300,
   };
 };
 
