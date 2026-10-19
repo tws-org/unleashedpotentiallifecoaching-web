@@ -12,6 +12,7 @@ Rule: outcomes first. Lead with what changed for Jess, with the number.
 - **Good request:** a real person, with a way to reach them, asking for therapy or behavioral health. Use the saved examples to decide close calls.
 - **Counting:** by the date received. One person who writes twice counts once. **Test submissions don't count:** every test message includes the word `TEST` in the message.
 - **Leading signal:** form submits (GA `generate_lead`, after the pipeline ships). Submit numbers start on the ship date, so there is no "before" for them.
+- **Campaigns (from 10/19/2026):** PostHog funnel page view → form view → form start → submit, broken down by form type and by UTM campaign. Each campaign Jess runs uses 1 tagged link.
 - **Guardrails:** spam that reaches the inbox stays near 0. Blocked submissions are logged and checked weekly, so the spam filter doesn't block real people.
 - **Comparison:** count Psychology Today inquiries each month too. If both go up, something outside the site may be the cause.
 - **Change log:** record the date of each change (pipeline, spam fix, each content update). Ship one change at a time where possible, so each result has a clear cause.
@@ -20,11 +21,15 @@ Rule: outcomes first. Lead with what changed for Jess, with the number.
 
 ## Change log
 
-| Date       | Change                                    | Expected effect             |
-| ---------- | ----------------------------------------- | --------------------------- |
-| 10/17/2026 | SPF, DKIM, DMARC fixed after the DNS move | Fewer real requests in spam |
-| 10/17/2026 | Phase 1b: `/api/submit` pipeline. Each submission gets an ID (in the subject, SendGrid and a DynamoDB record), the server builds the email, GA `generate_lead` on confirmed sends. Same forms, same email | Submits and sends can be counted and traced by ID |
-| 10/17/2026 | Phase 1c: spam protection on all 3 forms. Per-IP rate limit, honeypot, Turnstile. Blocked submits are recorded, not emailed | No spam in the inbox. Blocked count visible |
+| Date       | Change                                                                                                                                                                                                    | Expected effect                                                             |
+| ---------- | --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | --------------------------------------------------------------------------- |
+| 10/17/2026 | SPF, DKIM, DMARC fixed after the DNS move                                                                                                                                                                 | Fewer real requests in spam                                                 |
+| 10/17/2026 | Phase 1b: `/api/submit` pipeline. Each submission gets an ID (in the subject, SendGrid and a DynamoDB record), the server builds the email, GA `generate_lead` on confirmed sends. Same forms, same email | Submits and sends can be counted and traced by ID                           |
+| 10/17/2026 | Phase 1c: spam protection on all 3 forms. Per-IP rate limit, honeypot, Turnstile. Blocked submits are recorded, not emailed                                                                               | No spam in the inbox. Blocked count visible                                 |
+| 10/17/2026 | GA form journey: `form_view` (half the form on screen) and `form_start` (first focus), each with `form_type`                                                                                              | See where people stop in each form                                          |
+| 10/19/2026 | Turnstile script URL fix. The URL was split across 2 lines, so the challenge script may not have loaded from 10/17 until this deploy (not verified)                                                       | Forms work with spam protection on. Treat 10/17–10/19 submits as unreliable |
+| 10/19/2026 | PostHog added next to GA. Same 3 events with `form_type`, plus the `utm_*` campaign params from the landing URL                                                                                           | Leads counted by campaign, not only by form                                 |
+| 10/19/2026 | `www.jessrebelo.com` had no DNS record, so it showed no site. Now it 301s to `https://jessrebelo.com` (path and query kept). Always Use HTTPS on                                                          | No lost visits from "www" links. Start date of the outage unknown           |
 
 ## Headline
 
@@ -40,6 +45,7 @@ Notes to write from (facts, not final wording):
 - **Spam:** the forms had no spam protection (no honeypot, no CAPTCHA, no rate limit). Bots find unprotected forms over time. Likely cause of the spam increase (likely, not proven).
 - **The drop:** traffic was flat over the 2 months of data (about 70 visitors a month), so people did not stop visiting. Analytics kept only 2 months of history, so when the drop started cannot be found.
 - **Fit:** the site still said "life coaching," so it brought in life coaching requests. Her ideal clients (therapy, behavioral health) came from Psychology Today.
+- **www was broken.** `www.jessrebelo.com` had no DNS record (found 10/19/2026), so anyone who typed or clicked a "www" link saw no site and was never counted. When it started is unknown.
 - **Nothing counted the requests.** No submit tracking in analytics. The email provider's counts (48 delivered) did not match the inbox (4). So the honest answer was: we can't say exactly why yet, because nothing was measuring it.
 - Before: about 6 requests a month at the old level. From Aug 16 to Oct 16, 2026: 4 form emails in the inbox, 3 spam, 1 real, **0 good**. 2 of the 3 spam came through the review form.
 
@@ -50,6 +56,9 @@ Notes to write from:
 - Told her what we knew, what we couldn't know yet, and the plan, instead of guessing.
 - Step one: trackers, so every request is counted from the form to the inbox (one ID per submission).
 - Then: spam protection, then the content refresh toward therapy.
+- Counted each step of the form, not just the submit: view, start, submit. Then added PostHog so each lead can be traced to the campaign that brought it.
+- Fixed the www address so no visits are lost.
+- Review with Jess on 10/22/2026, then discovery on the rest of her business (how clients find her, booking, follow-up).
 
 <!-- The steps, short. Funnel first, then the fixes. -->
 
