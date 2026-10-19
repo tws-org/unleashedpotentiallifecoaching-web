@@ -64,14 +64,15 @@ pnpm dev               # Next.js on http://localhost:3001
 
 ### Environment variables
 
-| Variable                                                                | Used for                                                                                         |
-| ----------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------ |
-| `NEXT_PUBLIC_CONTENTFUL_GRAPHQL_API_URL`                                | Contentful GraphQL endpoint                                                                      |
-| `NEXT_PUBLIC_CONTENTFUL_MANAGEMENT_API_ACCESS_TOKEN`                    | Read-only Contentful delivery token. Ships to the browser on purpose for client-side pagination. |
-| `NEXT_PUBLIC_CONTENTFUL_SPACE_ID`, `NEXT_PUBLIC_CONTENTFUL_ENVIRONMENT` | Contentful space and environment                                                                 |
-| `SENDGRID_API_KEY`, `TO_EMAIL_ADDRESS`                                  | Contact form email (server only)                                                                 |
-| `CONTENTFUL_MANAGEMENT_TOKEN`                                           | `pnpm codegen` only. Never deploy it.                                                            |
-| `CLOUDFLARE_API_TOKEN`                                                  | Local Cloudflare deploys only                                                                    |
+| Variable                                                                | Used for                                                                                           |
+| ----------------------------------------------------------------------- | -------------------------------------------------------------------------------------------------- |
+| `NEXT_PUBLIC_CONTENTFUL_GRAPHQL_API_URL`                                | Contentful GraphQL endpoint                                                                        |
+| `NEXT_PUBLIC_CONTENTFUL_MANAGEMENT_API_ACCESS_TOKEN`                    | Read-only Contentful delivery token. Ships to the browser on purpose for client-side pagination.   |
+| `NEXT_PUBLIC_CONTENTFUL_SPACE_ID`, `NEXT_PUBLIC_CONTENTFUL_ENVIRONMENT` | Contentful space and environment                                                                   |
+| `NEXT_PUBLIC_POSTHOG_KEY`                                               | PostHog project key (public, `phc_...`). Campaign and form-journey analytics. No key = no PostHog. |
+| `SENDGRID_API_KEY`, `TO_EMAIL_ADDRESS`                                  | Contact form email (server only)                                                                   |
+| `CONTENTFUL_MANAGEMENT_TOKEN`                                           | `pnpm codegen` only. Never deploy it.                                                              |
+| `CLOUDFLARE_API_TOKEN`                                                  | Local Cloudflare deploys only                                                                      |
 
 On Cloudflare, `SENDGRID_API_KEY` and `TO_EMAIL_ADDRESS` are encrypted secrets on the app Worker. CI reads the `NEXT_PUBLIC_*` values and the Cloudflare credentials from GitHub Actions secrets.
 

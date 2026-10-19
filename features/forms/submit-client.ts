@@ -1,4 +1,4 @@
-import { sendGAEvent } from '@next/third-parties/google';
+import { track } from 'lib/analytics';
 import { FormType } from '../../lib/forms/schemas';
 
 type SubmitResult = { ok: true; id: string } | { ok: false };
@@ -20,8 +20,8 @@ const submitForm = async (
     };
     if (!res.ok || !data.ok || !data.id) return { ok: false };
 
-    // Count the lead in GA only after the server says the email was sent.
-    sendGAEvent('event', 'generate_lead', { form_type: formType });
+    // Count the lead in GA and PostHog only after the server says the email was sent.
+    track('generate_lead', { form_type: formType });
     return { ok: true, id: data.id };
   } catch (err) {
     console.error('submitForm failed', err);
