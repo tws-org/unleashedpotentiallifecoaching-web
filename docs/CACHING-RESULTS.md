@@ -53,7 +53,7 @@ From Workers & Pages → `unleashedpotentiallifecoaching-web` → Metrics. Each 
 | Before (2026-10-19, read by Peter) | 1.28k    | 4.05k       | 3.2                     |
 | After (24 h after the merge)       |          |             |                         |
 
-Screenshots (desktop: 5 pages; mobile: `/podcast`, `/services`) are kept outside git for the visual check.
+Screenshots (desktop: 5 pages; mobile: iPhone 16 Pro Max) are kept outside git for the visual check.
 
 Local check (`vite preview`, this PR): first request `MISS`, second request `HIT`. Before this PR, local preview returned `BYPASS`.
 
