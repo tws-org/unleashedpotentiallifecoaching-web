@@ -28,6 +28,17 @@ const AppHead = () => (
     />
     <meta httpEquiv="X-UA-Compatible" content="IE=edge" />
     <meta name="msvalidate.01" content="D568BE2730F6C27E33061E84F8DE58B1" />
+    {/* No pages/_document.tsx: vinext turns off its shared page cache when a
+        custom _document exists. The fonts and the html lang live here instead. */}
+    <script
+      dangerouslySetInnerHTML={{ __html: "document.documentElement.lang='en'" }}
+    />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin="" />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Lato:wght@400;700;900&family=Playfair+Display:ital,wght@0,500;0,700;1,500;1,700&display=swap"
+      rel="stylesheet"
+    />
     <link rel="icon" href="/favicon.png" />
     <link rel="apple-touch-icon" href="/site-icon-apple.png" />
     <meta name="theme-color" content="#ffffff" />

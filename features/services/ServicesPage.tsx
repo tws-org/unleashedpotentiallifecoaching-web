@@ -1,4 +1,3 @@
-import styled from 'styled-components';
 import { documentToReactComponents } from '@contentful/rich-text-react-renderer';
 import { BLOCKS } from '@contentful/rich-text-types';
 import ServiceCard from 'features/services/ServiceCard';
@@ -16,22 +15,6 @@ interface Props {
   page: IPageFields;
   pageContent: any;
 }
-
-const BorderRight = styled.div`
-  height: 1px;
-  background: #aaa;
-  width: 100%;
-`;
-
-const BorderMessage = styled.div`
-  background: #fff;
-  position: relative;
-  top: -40px;
-  width: 297px;
-  padding-top: 10px;
-  padding-bottom: 10px;
-  margin: auto;
-`;
 
 function renderOptions(links: any) {
   if (!links?.assets?.block) {

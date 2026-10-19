@@ -1,4 +1,3 @@
-import styled from 'styled-components';
 import { documentToReactComponents } from '@contentful/rich-text-react-renderer';
 import { fetchContenfulAPI } from 'lib/contentful/api';
 import { featuredReview } from 'lib/contentful/queries';
@@ -31,10 +30,12 @@ const FeaturedReview = () => {
           Client Review
         </p>
         <div className="px-12 py-8 lg:py-0 lg:px-48">
-          <Message>{documentToReactComponents((message as any).json)}</Message>
-          <Name id="contact">
+          <span className="review-message">
+            {documentToReactComponents((message as any).json)}
+          </span>
+          <span className="review-name" id="contact">
             - <p>{data?.[0]?.name}</p>
-          </Name>
+          </span>
         </div>
       </div>
     );
@@ -42,32 +43,5 @@ const FeaturedReview = () => {
 
   return null;
 };
-
-const Message = styled.span`
-  p {
-    font-size: 2.3rem;
-    line-height: 1.2;
-    color: #ffffff;
-    font-family: 'Playfair Display', serif;
-    text-align: center;
-    font-weight: 400;
-    font-style: italic;
-  }
-`;
-
-const Name = styled.span`
-  p::before {
-    content: '- ';
-  }
-  p {
-    font-size: 2rem;
-    line-height: 1.1;
-    color: #ffffff;
-    font-family: 'Playfair Display', serif;
-    font-weight: 700;
-    text-align: right;
-    margin-top: 0;
-  }
-`;
 
 export default FeaturedReview;

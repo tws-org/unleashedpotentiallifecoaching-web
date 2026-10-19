@@ -1,6 +1,5 @@
 import { useEffect, useId, useMemo, useState } from 'react';
 import dynamic from 'next/dynamic';
-import styled from 'styled-components';
 import Button from 'components/ui/Button';
 import { documentToReactComponents } from '@contentful/rich-text-react-renderer';
 import { useRouter } from 'next/router';
@@ -61,7 +60,9 @@ const ProfileHeader = ({ name, welcomeMessage }: Props) => {
           <h1 className="text-forrest text-3xl mt-0 font-bold mb-4">
             Hi, I&apos;m {firstName}
           </h1>
-          <Details>{documentToReactComponents(welcomeMessage?.json)}</Details>
+          <div className="profile-details">
+            {documentToReactComponents(welcomeMessage?.json)}
+          </div>
           <div className="w-full lg:w-80">
             <button
               onClick={() => setIsOpen(true)}
@@ -158,14 +159,5 @@ const ProfileHeader = ({ name, welcomeMessage }: Props) => {
     </>
   );
 };
-
-const Details = styled.div`
-  margin-top: 0;
-  font-size: 1.25rem;
-  line-height: 1.75rem;
-  color: #506967;
-  margin-bottom: 24px;
-  font-size: 1.2rem;
-`;
 
 export default ProfileHeader;

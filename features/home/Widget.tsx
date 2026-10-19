@@ -1,5 +1,4 @@
 import ImageWrapper from 'components/ui/ImageWrapper';
-import styled from 'styled-components';
 
 interface Props {
   description: string | undefined;
@@ -20,24 +19,13 @@ const Widget = ({ description, title, imageUrl }: Props) => {
         name={altText}
       />
       <div style={{ maxWidth: '500px' }} className="my-24 mx-0">
-        <Header>
+        <div className="widget-header">
           <h3>{title}</h3>
-        </Header>
+        </div>
         <p className="text-xl text-forrest my-6">{description}</p>
       </div>
     </div>
   );
 };
-
-const Header = styled.div`
-  h3 {
-    font-size: 2rem;
-    line-height: 1.2;
-    color: rgb(80, 105, 103);
-    font-family: 'Playfair Display', serif;
-    font-style: italic;
-    text-shadow: rgb(0 0 0 / 40%) 0px 4px 4px;
-  }
-`;
 
 export default Widget;
