@@ -24,13 +24,14 @@ for i in $(seq 1 15); do curl -s -o /dev/null -w "%{http_code} %{time_starttrans
 
 | Page                    | Before: cache | Before: TTFB median / p90 | After: cache | After: TTFB median / p90 |
 | ----------------------- | ------------- | ------------------------- | ------------ | ------------------------ |
-| `/`                     | BYPASS        | 156 ms / 163 ms           |              |                          |
-| `/services`             | BYPASS        | 151 ms / 163 ms           |              |                          |
-| `/coach/jessica-rebelo` | BYPASS        | 146 ms / 158 ms           |              |                          |
-| `/reviews`              | BYPASS        | 156 ms / 169 ms           |              |                          |
-| `/blog`                 | BYPASS        | 139 ms / 149 ms           |              |                          |
+| `/`                     | BYPASS        | 156 ms / 163 ms           | HIT          | 141 ms / 152 ms          |
+| `/services`             | BYPASS        | 151 ms / 163 ms           | HIT          | 138 ms / 155 ms          |
+| `/coach/jessica-rebelo` | BYPASS        | 146 ms / 158 ms           | HIT          | 142 ms / 219 ms          |
+| `/reviews`              | BYPASS        | 156 ms / 169 ms           | HIT          | 130 ms / 158 ms          |
+| `/blog`                 | BYPASS        | 139 ms / 149 ms           | HIT          | 130 ms / 151 ms          |
 
 Before: measured 2026-10-19 19:34 UTC, after PR #39 deployed (ISR on, cache bypassed).
+After: measured 2026-10-19 after PR #40 deployed. GET requests return `HIT` after 1–2 warm-up requests. TTFB median dropped 4–26 ms per page (the cache saves the render and the Contentful calls, but the edge round trip from this machine is most of the time).
 
 ### Lighthouse (mobile, default throttling, 3 runs, median)
 
@@ -38,11 +39,13 @@ Lighthouse 13.5.0 CLI, headless Chrome, same machine. Before: 2026-10-19, prod a
 
 | Page                    | Perf | A11y | Best practices | SEO | LCP    | TBT   | Server response | After: Perf / A11y / LCP / Server |
 | ----------------------- | ---- | ---- | -------------- | --- | ------ | ----- | --------------- | --------------------------------- |
-| `/`                     | 64   | 100  | 96             | 100 | 25.3 s | 40 ms | 99 ms           |                                   |
-| `/services`             | 70   | 98   | 96             | 100 | 18.7 s | 58 ms | 71 ms           |                                   |
-| `/coach/jessica-rebelo` | 73   | 98   | 96             | 100 | 6.5 s  | 84 ms | 81 ms           |                                   |
+| `/`                     | 64   | 100  | 96             | 100 | 25.3 s | 40 ms | 99 ms           | 71 / 100 / 24.1 s / 54 ms         |
+| `/services`             | 70   | 98   | 96             | 100 | 18.7 s | 58 ms | 71 ms           | 71 / 98 / 22.0 s / 66 ms          |
+| `/coach/jessica-rebelo` | 73   | 98   | 96             | 100 | 6.5 s  | 84 ms | 81 ms           | 73 / 98 / 6.7 s / 58 ms           |
 
-Watch after the merge: A11y must stay the same (the `lang` attribute moved), and CLS must stay 0 (the styled-components CSS moved). LCP is very slow on `/` and `/services`. That is a separate problem (likely images), not caching.
+After the merge: A11y is the same on all 3 pages, `html-has-lang` passes, CLS stays 0, and server response dropped to 54–66 ms (from 71–99 ms). Perf moved within run-to-run noise.
+
+Watched: A11y must stay the same (the `lang` attribute moved), and CLS must stay 0 (the styled-components CSS moved). LCP is very slow on `/` and `/services`. That is a separate problem (likely images), not caching.
 
 ### Cloudflare Worker metrics (last 24 hours)
 
