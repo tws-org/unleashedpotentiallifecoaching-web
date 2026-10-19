@@ -1,5 +1,5 @@
 import type { AppProps } from 'next/app';
-import React from 'react';
+import React, { useEffect } from 'react';
 import Head from 'next/head';
 import dynamic from 'next/dynamic';
 import { CoachesProvider } from 'features/coaches/CoachesContext';
@@ -9,6 +9,7 @@ import 'styles/globals.css';
 import { ConstantsProvider } from 'lib/ConstantsContext';
 import { GoogleAnalytics } from '@next/third-parties/google';
 import { GA_ID } from 'lib/constants';
+import { initAnalytics } from 'lib/analytics';
 import { EmailsProvider } from 'features/forms/FormSubmissionContext';
 import 'react-toastify/dist/ReactToastify.css';
 import { MotionConfig } from 'framer-motion';
@@ -34,6 +35,8 @@ const AppHead = () => (
 );
 
 const UnleashedPotentialApp = ({ Component, pageProps }: AppProps) => {
+  useEffect(initAnalytics, []);
+
   return (
     <>
       <QueryClientProvider client={queryClient}>
