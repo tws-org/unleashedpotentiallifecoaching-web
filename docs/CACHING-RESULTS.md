@@ -32,6 +32,18 @@ for i in $(seq 1 15); do curl -s -o /dev/null -w "%{http_code} %{time_starttrans
 
 Before: measured 2026-10-19 19:34 UTC, after PR #39 deployed (ISR on, cache bypassed).
 
+### Lighthouse (mobile, default throttling, 3 runs, median)
+
+Lighthouse 13.5.0 CLI, headless Chrome, same machine. Before: 2026-10-19, prod after PR #39.
+
+| Page                    | Perf | A11y | Best practices | SEO | LCP    | TBT   | Server response | After: Perf / A11y / LCP / Server |
+| ----------------------- | ---- | ---- | -------------- | --- | ------ | ----- | --------------- | --------------------------------- |
+| `/`                     | 64   | 100  | 96             | 100 | 25.3 s | 40 ms | 99 ms           |                                   |
+| `/services`             | 70   | 98   | 96             | 100 | 18.7 s | 58 ms | 71 ms           |                                   |
+| `/coach/jessica-rebelo` | 73   | 98   | 96             | 100 | 6.5 s  | 84 ms | 81 ms           |                                   |
+
+Watch after the merge: A11y must stay the same (the `lang` attribute moved), and CLS must stay 0 (the styled-components CSS moved). LCP is very slow on `/` and `/services`. That is a separate problem (likely images), not caching.
+
 Local check (`vite preview`, this PR): first request `MISS`, second request `HIT`. Before this PR, local preview returned `BYPASS`.
 
 ## Notes
