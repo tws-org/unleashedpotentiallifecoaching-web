@@ -81,3 +81,150 @@ a {
 .react-datepicker__month-container {
   min-width: 360px;
 }
+
+/* Styles moved from styled-components (removed so pages/_document.tsx could go:
+   a custom _document turns off vinext's shared page cache). Same CSS as before. */
+
+/* components/layout/ContentWrapper.tsx */
+.content-wrapper {
+  font-size: 1.25rem;
+  line-height: 1.75rem;
+  color: #506967;
+  margin-bottom: 64px;
+}
+.content-wrapper a {
+  text-decoration: underline;
+  color: rgb(21 128 61);
+}
+.content-wrapper p {
+  margin-bottom: 12px;
+}
+.content-wrapper p strong {
+  font-size: 1.4rem;
+}
+.content-wrapper h2 {
+  text-align: center;
+  font-size: 2rem;
+  margin-bottom: 32px;
+}
+.content-wrapper h3 {
+  font-size: 1.5rem;
+}
+.content-wrapper h4 {
+  font-size: 1.45rem;
+  line-height: 2rem;
+  margin-bottom: 16px;
+}
+.content-wrapper ul {
+  margin-left: 1.5em;
+}
+.content-wrapper ul li {
+  list-style-type: disc;
+}
+.content-wrapper hr {
+  margin-top: 2.5em;
+  margin-bottom: 2.5em;
+}
+.content-wrapper .daniel-castellon-ievtpifod0a-unsplash {
+  max-width: 300px;
+}
+.content-wrapper img {
+  display: block;
+  margin: auto;
+  margin-bottom: 1em;
+}
+@media (min-width: 768px) {
+  .content-wrapper img {
+    display: inline;
+    float: right;
+    margin-left: 2em;
+    max-width: 420px;
+  }
+  .content-wrapper .block-img {
+    float: right;
+    margin-top: 8px;
+    margin-left: 24px;
+  }
+}
+
+/* features/reviews/FeaturedReview.tsx */
+.review-message p {
+  font-size: 2.3rem;
+  line-height: 1.2;
+  color: #ffffff;
+  font-family: 'Playfair Display', serif;
+  text-align: center;
+  font-weight: 400;
+  font-style: italic;
+}
+.review-name p::before {
+  content: '- ';
+}
+.review-name p {
+  font-size: 2rem;
+  line-height: 1.1;
+  color: #ffffff;
+  font-family: 'Playfair Display', serif;
+  font-weight: 700;
+  text-align: right;
+  margin-top: 0;
+}
+
+/* features/podcast/Video.tsx */
+.video-container {
+  width: 100%;
+  margin-bottom: 42px;
+}
+@media (min-width: 640px) {
+  .video-container {
+    width: 47%;
+  }
+}
+.video-iframe {
+  width: 100%;
+  min-height: 350px;
+}
+.video-details {
+  margin-top: 16px;
+}
+
+/* features/coaches/ProfileHeader.tsx */
+.profile-details {
+  margin-top: 0;
+  line-height: 1.75rem;
+  color: #506967;
+  margin-bottom: 24px;
+  font-size: 1.2rem;
+}
+
+/* features/home/FeaturedMessage.tsx */
+.featured-message {
+  text-align: center;
+  max-width: 600px;
+}
+.featured-message h2:first-child {
+  font-size: 2.2rem;
+  line-height: 1;
+  font-weight: bold;
+  font-family: 'Playfair Display';
+  font-style: italic;
+  color: #31464b;
+  margin-bottom: 16px;
+}
+.featured-message p {
+  font-size: 1.5rem;
+  line-height: 1.2;
+  color: #31464b;
+  margin-bottom: 16px;
+  margin-top: 32px;
+}
+
+/* features/home/Widget.tsx */
+.widget-header h3 {
+  font-size: 2rem;
+  line-height: 1.2;
+  color: rgb(80, 105, 103);
+  font-family: 'Playfair Display', serif;
+  font-style: italic;
+  text-shadow: rgb(0 0 0 / 40%) 0px 4px 4px;
+}
