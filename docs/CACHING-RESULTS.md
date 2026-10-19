@@ -44,6 +44,17 @@ Lighthouse 13.5.0 CLI, headless Chrome, same machine. Before: 2026-10-19, prod a
 
 Watch after the merge: A11y must stay the same (the `lang` attribute moved), and CLS must stay 0 (the styled-components CSS moved). LCP is very slow on `/` and `/services`. That is a separate problem (likely images), not caching.
 
+### Cloudflare Worker metrics (last 24 hours)
+
+From Workers & Pages → `unleashedpotentiallifecoaching-web` → Metrics. Each Contentful call is a subrequest.
+
+|                                    | Requests | Subrequests | Subrequests per request |
+| ---------------------------------- | -------- | ----------- | ----------------------- |
+| Before (2026-10-19, read by Peter) | 1.28k    | 4.05k       | 3.2                     |
+| After (24 h after the merge)       |          |             |                         |
+
+Screenshots (desktop: 5 pages; mobile: `/podcast`, `/services`) are kept outside git for the visual check.
+
 Local check (`vite preview`, this PR): first request `MISS`, second request `HIT`. Before this PR, local preview returned `BYPASS`.
 
 ## Notes
