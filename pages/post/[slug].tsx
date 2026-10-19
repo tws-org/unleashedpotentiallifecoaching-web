@@ -30,9 +30,10 @@ export const getStaticProps: GetStaticProps = async ({ params }) => {
   const slug = params?.slug as string;
   const postData = await fetchContenfulAPI(blogPostQuery(slug), {});
 
-  if (postData?.data?.blogPostCollection?.items.length === 0) {
+  if (!postData?.data?.blogPostCollection?.items?.length) {
     return {
       notFound: true,
+      revalidate: 300,
     };
   }
 
@@ -44,6 +45,7 @@ export const getStaticProps: GetStaticProps = async ({ params }) => {
     props: {
       post,
     },
+    revalidate: 300,
   };
 };
 

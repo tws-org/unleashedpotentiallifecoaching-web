@@ -34,9 +34,10 @@ export const getStaticProps: GetStaticProps = async ({ params }) => {
   const slug = params?.slug as string;
   const servicesPageData = await fetchContenfulAPI(servicePageQuery(slug), {});
 
-  if (servicesPageData?.servicePageCollection?.items.length <= 0) {
+  if (!servicesPageData?.data?.servicePageCollection?.items?.length) {
     return {
       notFound: true,
+      revalidate: 300,
     };
   }
 
@@ -50,6 +51,7 @@ export const getStaticProps: GetStaticProps = async ({ params }) => {
       page,
       coaches: page?.coach ? [page?.coach] : [],
     },
+    revalidate: 300,
   };
 };
 

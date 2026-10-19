@@ -23,6 +23,7 @@ export const getStaticProps: GetStaticProps = async () => {
       page,
       coaches,
     },
+    revalidate: 300,
   };
 };
 
