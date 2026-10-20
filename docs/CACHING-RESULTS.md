@@ -47,14 +47,19 @@ After the merge: A11y is the same on all 3 pages, `html-has-lang` passes, CLS st
 
 Watched: A11y must stay the same (the `lang` attribute moved), and CLS must stay 0 (the styled-components CSS moved). LCP is very slow on `/` and `/services`. That is a separate problem (likely images), not caching.
 
-### Cloudflare Worker metrics (last 24 hours)
+### Cloudflare Worker metrics (by day)
 
 From Workers & Pages → `unleashedpotentiallifecoaching-web` → Metrics. Each Contentful call is a subrequest.
 
-|                                    | Requests | Subrequests | Subrequests per request |
-| ---------------------------------- | -------- | ----------- | ----------------------- |
-| Before (2026-10-19, read by Peter) | 1.28k    | 4.05k       | 3.2                     |
-| After (24 h after the merge)       |          |             |                         |
+|                                        | Asset requests | Subrequests | Subrequests per asset request |
+| -------------------------------------- | -------------- | ----------- | ----------------------------- |
+| Before (2026-10-19, read by Peter)     | 1.28k          | 4.05k       | 3.2                           |
+| Oct 19, full day (deploy day, mixed)   | 2.73k          | 10.93k      | 4.0                           |
+| Oct 20, full day (first full day after) | to read on Oct 21 |          |                               |
+
+All rows are the "Asset requests" number from the Metrics page (the dashboard did not show the Worker request count), so they compare the same thing. The "Before" row is the last 24 hours, read on Oct 19 before the merge.
+
+Oct 19 is not a clean "after" day. PR #40 deployed during the day, so the day has hours before and after the change. It also has the test traffic from the measurements above (curl loops and Lighthouse runs), and each new deploy starts with an empty cache. Oct 20 is the first full day after the change, so it is the real comparison. A partial reading on Oct 20 (2.03k asset requests, 5.21k subrequests, 2.6 per request) is not used, because the day was not over.
 
 Screenshots (desktop: 5 pages; mobile: iPhone 16 Pro Max) are kept outside git for the visual check.
 
