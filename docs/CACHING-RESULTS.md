@@ -51,13 +51,33 @@ Watched: A11y must stay the same (the `lang` attribute moved), and CLS must stay
 
 From Workers & Pages → `unleashedpotentiallifecoaching-web` → Metrics. Each Contentful call is a subrequest.
 
-|                                        | Asset requests | Subrequests | Subrequests per asset request |
-| -------------------------------------- | -------------- | ----------- | ----------------------------- |
-| Before (2026-10-19, read by Peter)     | 1.28k          | 4.05k       | 3.2                           |
-| Oct 19, full day (deploy day, mixed)   | 2.73k          | 10.93k      | 4.0                           |
-| Oct 20, full day (first full day after) | to read on Oct 21 |          |                               |
+|                                                                      | Asset requests | Subrequests | Subrequests per asset request |
+| -------------------------------------------------------------------- | -------------- | ----------- | ----------------------------- |
+| Before (last 24 hours, Oct 18 to 19, read by Peter before the merge) | 1.28k          | 4.05k       | 3.2                           |
+| Oct 19, calendar day (deploy day, mixed)                             | 1.93k          | 2.75k       | 1.4                           |
+| Oct 20, calendar day (first full day after)                          | 823            | 9.16k       | 11.1                          |
 
-All rows are the "Asset requests" number from the Metrics page (the dashboard did not show the Worker request count), so they compare the same thing. The "Before" row is the last 24 hours, read on Oct 19 before the merge.
+All rows are the "Asset requests" number from the Metrics page (the dashboard did not show the Worker request count), so they compare the same thing. The "Before" row is a rolling 24-hour window, read on Oct 19 before the merge. The Oct 19 and Oct 20 rows are calendar days, read on Oct 21 with the date picker. An earlier Oct 19 reading (2.73k and 10.93k) used a different range, so it is not used.
+
+**Why subrequests went up (explained from the code, not counted):** on Oct 20, every page returned `HIT`, but subrequests per asset request went up to 11.1. A subrequest is not only a Contentful call. The cache is vinext's `responseStoreAdapter`: each cached page is an object in R2 (`CACHE_BODIES`), with an index in a Durable Object (`CACHE_METADATA`), reached through a service binding. So a cache read costs internal calls (the binding call and an R2 read), and writes and refreshes add Durable Object calls. None of these goes to an outside host: the subrequest list by host showed only `graphql.contentful.com`. The dashboard has no separate metrics for the response store, so these internal calls were not counted.
+
+### Contentful calls (by day)
+
+Subrequests to `graphql.contentful.com`, from the Worker metrics (read by Peter, calendar days):
+
+| Day    | Contentful calls | Note                                                   |
+| ------ | ---------------- | ------------------------------------------------------ |
+| Oct 18 | 391              | Before the change                                      |
+| Oct 19 | 857              | Deploy day, with test traffic (curl loops, Lighthouse) |
+| Oct 20 | 319              | First full day after the change                        |
+
+Oct 20 has 18% fewer Contentful calls than Oct 18. Oct 18 traffic as a calendar day was not read, so part of the drop can be fewer visitors.
+
+### Conclusion
+
+1. Pages are served from the cache: proven (`HIT` on all 5 pages, TTFB and server response down).
+2. Fewer Contentful calls: measured, 391 to 319 (18% fewer).
+3. The rise in total subrequests is the cache's own internal calls (R2, Durable Object, service binding): explained from the code, not counted.
 
 Oct 19 is not a clean "after" day. PR #40 deployed during the day, so the day has hours before and after the change. It also has the test traffic from the measurements above (curl loops and Lighthouse runs), and each new deploy starts with an empty cache. Oct 20 is the first full day after the change, so it is the real comparison. A partial reading on Oct 20 (2.03k asset requests, 5.21k subrequests, 2.6 per request) is not used, because the day was not over.
 
