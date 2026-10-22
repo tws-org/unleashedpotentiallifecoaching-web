@@ -49,7 +49,7 @@ Watched: A11y must stay the same (the `lang` attribute moved), and CLS must stay
 
 ### Cloudflare Worker metrics (by day)
 
-From Workers & Pages → `unleashedpotentiallifecoaching-web` → Metrics. Each Contentful call is a subrequest.
+From Workers & Pages → `unleashedpotentiallifecoaching-web` → Metrics. Each Contentful call is a subrequest, but not each subrequest is a Contentful call: the cache's own reads also count (see below).
 
 |                                                                      | Asset requests | Subrequests | Subrequests per asset request |
 | -------------------------------------------------------------------- | -------------- | ----------- | ----------------------------- |
